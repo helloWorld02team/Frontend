@@ -4,15 +4,18 @@ import Content from "./component/content";
 import CalendarApp from "./component/libra/caren";
 import Footer from "./component/Footer";
 import HelpCenter from "./component/HelpCenter";
+import Rules from "./component/Rules";
+import RpNotSubmit from "./component/RpNotSubmit";
 
 function App() {
   return (
     <div>
-      {/* <Navbar />
+      <Navbar />
       <Content />
       <CalendarApp />
-      <Footer /> */}
-      <HelpCenter />
+      <Footer /> 
+      {/* <Rules  />
+      <RpNotSubmit /> */}
     </div>
   );
 }
