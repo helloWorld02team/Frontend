@@ -16,7 +16,7 @@ const BookingForm = ({ open, handleOpen }) => {
       repeatFrequency: "",
       bookingDate: "",
       endDate: "",
-      attendees: "",
+      
     });
   
     const handleChange = (e) => {
