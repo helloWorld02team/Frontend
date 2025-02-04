@@ -72,7 +72,7 @@ const LoginModal = ({ open, handleOpen }) => {
               <a href="#">ลืมรหัสผ่าน?</a>
             </div>
             <Button className="w-full bg-[#4EFFF0] text-black text-[15px]" type="submit">
-              เข้าสู่ระบบบ
+              เข้าสู่ระบบ
             </Button>
           </form>
         </CardBody>
