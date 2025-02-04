@@ -28,6 +28,13 @@ const CalendarApp = () => {
       start: '2025-02-01 06:00',
       end: '2025-02-01 09:00',
     },
+    {
+      id: '4',
+      title: 'สอน',
+      start: '2025-02-04 06:00',
+      end: '2025-02-04 09:00',
+    },
+
   ]);
 
   const calendar = useCalendarApp({
