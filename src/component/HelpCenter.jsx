@@ -11,6 +11,7 @@ import Footer from "./Footer";
 import { Link } from "react-router-dom";
 import HowToBook from "./HowToBook";
 import HowToReport from "./HowToReport";
+import HowToUse from "./HowToUse";
 
 const faqItems = [
   "ล็อกอินเข้าระบบได้อย่างไร?",
@@ -21,9 +22,9 @@ const faqItems = [
 ];
 
 export default function HelpCenter() {
+  const [isSystemOpen, setIsSystemOpen] = useState(false);
   const [isBookOpen, setIsBookOpen] = useState(false); // ควบคุม Modal HowToBook
   const [isReportOpen, setIsReportOpen] = useState(false); // ควบคุม Modal HowToReport
-
   return (
     <>
       <Navbar />
@@ -55,10 +56,10 @@ export default function HelpCenter() {
             {/* ปุ่มเปิด modal */}
             <div className="flex gap-6 mt-12">
               <button
-                // onClick={() => setIsBookOpen(true)} // เปิด Modal
+                onClick={() => setIsSystemOpen(true)} // เปิด Modal
                 className="flex flex-col items-center bg-white p-6 rounded-2xl shadow-md w-60 py-10 hover:bg-gray-200"
               >
-                <Calendar size={40} className="text-blue-400" />
+                <Book size={40} className="text-blue-400" />
                 <p className="mt-4 text-lg font-semibold text-black text-center">
                   อธิบายระบบจองห้อง
                 </p>
@@ -76,7 +77,7 @@ export default function HelpCenter() {
                 onClick={() => setIsReportOpen(true)} // เปิด Modal
                 className="flex flex-col items-center bg-white p-6 rounded-2xl shadow-md w-60 py-10 hover:bg-gray-200"
               >
-                <Calendar size={40} className="text-blue-400" />
+                <Flag size={40} className="text-blue-400" />
                 <p className="mt-4 text-lg font-semibold text-black text-center">
                  วิธีรายงาน
                 </p>
@@ -84,7 +85,7 @@ export default function HelpCenter() {
             </div>
           </div>
           {/* ส่วนคำถามที่พบบ่อย (พื้นหลังสีขาว) */}
-          <div className="bg-white w-full flex justify-center py-10 mt-30">
+          <div className="bg-white w-full flex justify-center py-10 mt-15">
             <div className="w-full max-w-2xl p-6 rounded-2xl">
               <h2 className="text-2xl font-bold text-black mb-4">
                 คำถามที่พบบ่อย
@@ -107,6 +108,7 @@ export default function HelpCenter() {
         </div>
       </div>
       {/* Modal */}
+      {isSystemOpen && <HowToUse setIsOpen={setIsSystemOpen} />}
       {isBookOpen && <HowToBook setIsOpen={setIsBookOpen} />}
       {isReportOpen && <HowToReport setIsOpen={setIsReportOpen} />}
       <Footer />

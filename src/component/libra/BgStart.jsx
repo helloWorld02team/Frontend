@@ -4,7 +4,7 @@ function BgStart() {
   return (
     <div
       className="relative w-1/2 bg-cover bg-center flex flex-col justify-end items-center"
-      style={{ backgroundImage: "url('public/sitback.png')" }}
+      style={{ backgroundImage: "url('public/sitbacks.png')" }}
     >
       <div className="flex items-center p-10 relative z-10">
         <div

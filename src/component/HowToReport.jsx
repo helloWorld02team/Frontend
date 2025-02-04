@@ -17,7 +17,7 @@ export default function HowToReport({ setIsOpen }) {
           <p className="border-b border-[#9A97A1]">1. เข้าไปในส่วนของหน้า “Report” ในปุ่มข้างบน
             <img src="/Report/Report1.png" alt="" className="w-4/5 mx-auto py-5" />
           </p>
-          <p className="border-b border-[#9A97A1]">2. จากนั้นทำการกรอกรายละเอียดให้ครบถ้วน จากนั้นกด “ส่งรีพอร์ต”
+          <p className="">2. จากนั้นทำการกรอกรายละเอียดให้ครบถ้วน จากนั้นกด “ส่งรีพอร์ต”
             <img src="public/Report/Report2.png" alt="" className="w-4/5 mx-auto py-5" />
           </p>
         </div>
