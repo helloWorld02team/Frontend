@@ -12,7 +12,7 @@ import {
   export function MenuWithCheckbox() {
     return (
         <>
-        <div className="border-1 px-5 flex-col" >
+        <div className="px-5 flex-col" >
             <p className="mb-5 font-bold text-3xl ">อาคาร</p>
             <Menu
                 dismiss={{

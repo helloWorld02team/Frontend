@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Dialog, Card, CardBody, Typography, Button,  } from "@material-tailwind/react";
 import LxStart from "./LxStart";
 
+
 const BookingForm = ({ open, handleOpen }) => {
     const [formData, setFormData] = useState({
       name: "",
@@ -10,6 +11,7 @@ const BookingForm = ({ open, handleOpen }) => {
       endTime: "",
       floor: "",
       room: "",
+      building: "" ,
       additionalInfo: "",
       repeatBooking: false,
       repeatBookingOption: "",
@@ -51,22 +53,7 @@ const BookingForm = ({ open, handleOpen }) => {
       console.log("Booking Payload:", payload);
     };
   
-    const validateForm = () => {
-      if (!formData.name || !formData.date || !formData.startTime || !formData.endTime) {
-        alert("กรุณากรอกข้อมูลที่จำเป็นให้ครบถ้วน");
-        return false;
-      }
-      if (formData.startTime >= formData.endTime) {
-        alert("เวลาเริ่มต้นต้องก่อนเวลาสิ้นสุด");
-        return false;
-      }
-      if (formData.repeatBookingOption && (!formData.bookingDate || !formData.endDate)) {
-        alert("กรุณาระบุวันที่เริ่มต้นและสิ้นสุดสำหรับการจองซ้ำ");
-        return false;
-      }
-      return true;
-    };
-  
+
     return (
       <Dialog
         open={open}
@@ -128,6 +115,17 @@ const BookingForm = ({ open, handleOpen }) => {
                     onChange={handleChange}
                   />
                 </div>
+              </div>
+              <div>
+                <Typography variant="h6">อาคาร</Typography>
+                <input
+                  type="text"
+                  name="building"
+                  className="w-full p-2 border rounded-lg shadow-md"
+                  placeholder="LX CB SIT"
+                  value={formData.building}
+                  onChange={handleChange}
+                />
               </div>
               <div>
                 <Typography variant="h6">ชั้นที่</Typography>

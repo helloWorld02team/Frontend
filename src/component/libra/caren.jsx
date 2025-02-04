@@ -29,10 +29,10 @@ const CalendarApp = () => {
       end: '2025-02-01 09:00',
     },
     {
-      id: '4',
-      title: 'สอน',
-      start: '2025-02-04 06:00',
-      end: '2025-02-04 09:00',
+      id: '3',
+      title: 'DSI101',
+      start: '2025-02-04 05:00',
+      end: '2025-02-04 07:00',
     },
 
   ]);
@@ -57,12 +57,16 @@ const CalendarApp = () => {
   const openBookingForm = () => setBookingFormOpen(true);
   const closeBookingForm = () => setBookingFormOpen(false);
 
-  // ฟังก์ชันเพิ่ม event ลงใน calendar
+ 
   const addEventToCalendar = (newEvent) => {
-    setEvents((prevEvents) => [
-      ...prevEvents,
-      { id: `${Date.now()}`, ...newEvent },
-    ]);
+    setEvents((prevEvents) => {
+      return [...prevEvents, { 
+        id: Date.now(),
+        title: newEvent.name,
+        start: `${newEvent.date} ${newEvent.startTime}`,
+        end: `${newEvent.date} ${newEvent.endTime}`
+      }];
+    });
   };
 
   return (
@@ -82,7 +86,8 @@ const CalendarApp = () => {
         </div>
       </div>
 
-      {/* Booking Form Modal */}
+      
+
       <BookingForm
         open={isBookingFormOpen}
         handleOpen={closeBookingForm}
