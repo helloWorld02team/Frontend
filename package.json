@@ -22,6 +22,7 @@
     "@schedule-x/events-service": "^2.16.1",
     "@schedule-x/react": "^2.16.1",
     "@schedule-x/theme-default": "^2.16.1",
+    "@shadcn/ui": "^0.0.4",
     "@tailwindcss/vite": "^4.0.0",
     "dayjs": "^1.11.13",
     "lucide-react": "^0.474.0",
@@ -41,6 +42,7 @@
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.16",
     "globals": "^15.14.0",
+    "lightningcss": "^1.29.1",
     "vite": "^6.0.5"
   }
 }
