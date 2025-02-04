@@ -6,6 +6,7 @@ import Report from './component/report.jsx'
 import { createBrowserRouter, RouterProvider, } from 'react-router-dom'
 
 import BookingPage from './component/BookingPage.jsx'
+import HelpCenter from './component/HelpCenter.jsx'
 
 const router = createBrowserRouter ([
   {
@@ -21,8 +22,8 @@ const router = createBrowserRouter ([
     element:<BookingPage />
   },
   {
-    path: "/",
-    element:<App />
+    path: "/Help",
+    element:<HelpCenter />
   },
 ])
 createRoot(document.getElementById('root')).render(
