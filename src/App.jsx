@@ -3,16 +3,16 @@ import Navbar from "./component/Navbar";
 import Content from "./component/content";
 import CalendarApp from "./component/libra/caren";
 import Footer from "./component/Footer";
-import HelpCenter from "./component/HelpCenter";
+
 
 function App() {
   return (
     <div>
-      {/* <Navbar />
+      <Navbar />
       <Content />
       <CalendarApp />
-      <Footer /> */}
-      <HelpCenter />
+      <Footer />
+      
     </div>
   );
 }
