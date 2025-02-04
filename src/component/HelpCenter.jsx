@@ -6,6 +6,9 @@ import {
   MessageSquare,
   ChevronRight,
 } from "lucide-react";
+import Navbar from "./Navbar";
+import Footer from "./Footer";
+
 
 const faqItems = [
   "ล็อกอินเข้าระบบได้อย่างไร?",
@@ -29,6 +32,8 @@ const cards = [
 
 export default function HelpCenter() {
   return (
+    <>
+    <Navbar />
     <div className="bg-white min-h-screen flex flex-col items-center">
       <div className="w-full">
         {/* ส่วนหัวที่มีพื้นหลังไล่สี */}
@@ -93,5 +98,8 @@ export default function HelpCenter() {
         </div>
       </div>
     </div>
+    <Footer />
+    </>
+    
   );
 }
