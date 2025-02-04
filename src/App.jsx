@@ -10,7 +10,7 @@ function App() {
       <Navbar />
       <Content />
       <CalendarApp />
-      <Footer /> 
+    
     </div>
   );
 }

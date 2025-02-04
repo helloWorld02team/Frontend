@@ -6,6 +6,7 @@ import LoginModal from './libra/LoginModal';
 const Navbar = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen((cur) => !cur);
+  const [userName, setUserName] = React.useState(null);
 
   return (
     <div className='flex justify-between items-center p-4 bg-black shadow-md'>
@@ -29,9 +30,10 @@ const Navbar = () => {
         variant="gradient"
         className='bg-white text-black px-15 py-2 rounded-lg hover:bg-gray-800 mr-20 hover:cursor-pointer'
       >
-        Login
+        {userName ? `ยินดีต้อนรับ, ${userName}` : "Login"}
       </Button>
-      <LoginModal open={open} handleOpen={handleOpen} />
+      <LoginModal open={open} handleOpen={handleOpen} setUserName={setUserName} />
+      
     </div>
   );
 };

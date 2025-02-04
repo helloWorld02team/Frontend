@@ -3,6 +3,35 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 
 function ReportForm() {
+  const handleSubmit = async () => {
+    try {
+      const response = await fetch("http://localhost:3001/api/report/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      if (response.ok) {
+        alert("รายงานถูกส่งเรียบร้อยแล้ว");
+        setFormData({
+          reporter: "",
+          date: new Date().toISOString().split("T")[0],
+          building: "",
+          floor: "",
+          room: "",
+          description: "",
+          image: null,
+        });
+      } else {
+        alert("การส่งรายงานล้มเหลว กรุณาลองใหม่");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("เกิดข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์");
+    }
+  };
   const [formData, setFormData] = useState({
     reporter: "",
     date: new Date().toISOString().split("T")[0],
@@ -237,7 +266,7 @@ function ReportForm() {
               >
                 ยกเลิก
               </button>
-              <button className="px-8 py-3 bg-[#4EFFF0] border border-gray-300 rounded-lg w-[200px] shadow-md hover:shadow-lg">
+              <button className="px-8 py-3 bg-[#4EFFF0] border border-gray-300 rounded-lg w-[200px] shadow-md hover:shadow-lg" onClick={handleSubmit}>
                 ส่งรีพอร์ต
               </button>
             </div>
