@@ -7,6 +7,7 @@ import { createBrowserRouter, RouterProvider, } from 'react-router-dom'
 
 import BookingPage from './component/BookingPage.jsx'
 import HelpCenter from './component/HelpCenter.jsx'
+import HowToBook from './component/HowToBook.jsx'
 
 const router = createBrowserRouter ([
   {
@@ -20,6 +21,14 @@ const router = createBrowserRouter ([
   {
     path: "/Rooms",
     element:<BookingPage />
+  },
+  {
+    path: "/Help",
+    element:<HelpCenter />
+  },
+  {
+    path: "/HowToBook",
+    element:<HowToBook />
   },
   {
     path: "/Help",
