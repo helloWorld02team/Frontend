@@ -3,7 +3,6 @@ import Navbar from "./component/Navbar";
 import Content from "./component/content";
 import CalendarApp from "./component/libra/caren";
 import Footer from "./component/Footer";
-import Test from "./component/Test";
 
 
 function App() {
@@ -13,7 +12,7 @@ function App() {
       <Content />
       <CalendarApp />
       <Footer />
-      <Test />
+
     </div>
   );
 }
