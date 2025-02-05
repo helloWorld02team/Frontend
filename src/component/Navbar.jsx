@@ -25,38 +25,27 @@ const Navbar = () => {
   return (
     <div className='flex justify-between items-center p-4 bg-black shadow-md'>
       <div className='ml-20 flex'>
-        <div className='border-r-[0.5px] border-white pr-2'>
-          <span className='text-white text-[15px] font-bold'>Booking<br />System</span>
+        <div className='border-r-1 pr-2'>
+          <span className='text-white text-[15px] font-bold'>Booking<br/>System</span>
         </div>
         <img src="public/sit.png" alt="" className='w-50' />
       </div>
       <div>
-        <ul className='flex gap-25 text-[15px] font-bold'>
+        <ul className='flex gap-25 text-[18px] font-bold'>
           <li><Link to="/" className='text-white'>Home</Link></li>
           <li><Link to="/Rooms" className='text-white'>Rooms</Link></li>
           <li><Link to="/Report" className='text-white'>Report</Link></li>
           <li><Link to="/Help" className='text-white'>Help</Link></li>
         </ul>
       </div>
-      {userName ? (
-        <Button
-          color='cyan'
-          onClick={handleLogout}
-          variant="gradient"
-          className='bg-white text-black px-15 py-2 rounded-lg hover:bg-gray-800 mr-20 hover:cursor-pointer'
-        >
-          Logout ({userName})
-        </Button>
-      ) : (
-        <Button
-          color='cyan'
-          onClick={handleOpen}
-          variant="gradient"
-          className='bg-white text-black px-15 py-2 rounded-lg hover:bg-gray-800 mr-20 hover:cursor-pointer'
-        >
-          Login
-        </Button>
-      )}
+      <Button
+        color='white'
+        onClick={handleOpen}
+        variant="gradient"
+        className=' text-black px-15 py-3 rounded-xl hover:bg-[#53E2FF] mr-20 hover:cursor-pointer'
+      >
+        {userName ? `ยินดีต้อนรับ, ${userName}` : "L0gin"}
+      </Button>
       <LoginModal open={open} handleOpen={handleOpen} setUserName={setUserName} />
     </div>
   );
