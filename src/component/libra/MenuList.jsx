@@ -12,15 +12,20 @@ import {
   export function MenuWithCheckbox() {
     return (
         <>
-        <div className="px-5 flex-col" >
-            <p className="mb-5 font-bold text-3xl ">อาคาร</p>
+        <div className="px-5 flex-col bg-white rounded-2xl pt-5 shadow-2xl mt-7">
+            <p className="mb-3 font-bold text-2xl ">อาคาร</p>
             <Menu
                 dismiss={{
                 itemPress: false,
                 }}
                 
                 >
-                <MenuHandler style={{ backgroundImage: 'url(public/sitback.png',backgroundSize:"cover",backgroundRepeat: "no-repeat",backgroundPosition: "center  "}} className="mb-3 w-full h-14 text-2xl cursor-pointer">
+                <MenuHandler  style={{
+                        backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(public/sitback.png)',
+                        backgroundSize: "cover",
+                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: "center"
+                    }} className="mb-3 w-full h-14 text-2xl cursor-pointer">
                 <Button >SIT Building
                 </Button>
                 </MenuHandler>
@@ -74,7 +79,7 @@ import {
             <Menu dismiss={{
                 itemPress: false,
                 }}>
-                <MenuHandler style={{ backgroundImage: 'url(public/Lx_2.jpg',backgroundSize:"cover",backgroundRepeat: "no-repeat",backgroundPosition: "center  "}} className="mb-3 w-full h-14 text-2xl cursor-pointer">
+                <MenuHandler style={{ backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(public/Lx_2.jpg',backgroundSize:"cover",backgroundRepeat: "no-repeat",backgroundPosition: "center  "}} className="mb-3 w-full h-14 text-2xl cursor-pointer">
                 <Button>LX
                 </Button>
                 </MenuHandler>
@@ -129,7 +134,7 @@ import {
             <Menu dismiss={{
                 itemPress: false,
                 }}>
-                <MenuHandler style={{ backgroundImage: 'url(public/cb2.jpg',backgroundSize:"cover",backgroundRepeat: "no-repeat",backgroundPosition: "center 70% "}} className="mb-3 w-full h-14 text-2xl cursor-pointer">
+                <MenuHandler style={{ backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(public/cb2.jpg',backgroundSize:"cover",backgroundRepeat: "no-repeat",backgroundPosition: "center 70% "}} className="mb-3 w-full h-14 text-2xl cursor-pointer">
                 <Button>CB
                 </Button>
                 </MenuHandler>

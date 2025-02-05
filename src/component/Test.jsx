@@ -121,9 +121,9 @@ const Test = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-200 rounded-2xl bg-gray-50 p-6 shadow-2xl">
       <header className="flex justify-between items-center mb-4">
-        <h1 className="text-3xl font-bold">Booking Room</h1>
+        <h1 className="text-3xl font-bold">Booking Rooms</h1>
       </header>
 
       {/* Calendar Component */}
@@ -135,13 +135,13 @@ const Test = () => {
         selectable
         onSelectSlot={handleSelectSlot}
         onSelectEvent={handleSelectEvent}
-        style={{ height: 500 }}
+        style={{ height: 700 }}
         step={30}
         views={{ week: true, day: true }}
         defaultView="week"
-        className="border border-gray-200 rounded-lg"
+        className="border border-gray-200 rounded-lg "
         min={new Date(2023, 1, 1, 8, 0)}
-        max={new Date(2023, 1, 1, 22, 0)}
+        max={new Date(2023, 1, 1, 23, 0)}
       />
 
       {/* Modal for Adding Event */}
