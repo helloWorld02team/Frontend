@@ -13,19 +13,30 @@ const LoginModal = ({ open, handleOpen , setUserName}) => {
     setErrorMessage("");
   
     try {
-      const response = await fetch("http://localhost:3001/api/user/login", {
+      const response = await fetch("https://www.melivecode.com/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ userEmail: email, userPassword: password }),
+        body: JSON.stringify({ username: email, password: password }),
       });
   
       const result = await response.json();
   
       if (response.ok) {
         console.log("ล็อกอินสำเร็จ:", result.message);
-        setUserName(result.data.userName);
+        setUserName(result.user.username);
+  
+        if (rememberMe) {
+          localStorage.setItem("userData", JSON.stringify(result.user));
+          const userData = {
+            token: result.accessToken,
+            username: result.user.username,
+            expiresIn: result.expiresIn,
+          };
+          localStorage.setItem("userData", JSON.stringify(userData));
+        }
+  
         handleOpen(); // ปิดโมดอล
       } else {
         setErrorMessage(result.message || "เกิดข้อผิดพลาดในการเข้าสู่ระบบ");
@@ -35,6 +46,7 @@ const LoginModal = ({ open, handleOpen , setUserName}) => {
       console.error("Error:", error);
     }
   };
+  
   
 
   useEffect(() => {
@@ -75,7 +87,7 @@ const LoginModal = ({ open, handleOpen , setUserName}) => {
             <div className="mb-4">
               <Typography variant="h6">อีเมล</Typography>
               <input
-                type="email"
+                type="text"
                 className="w-full p-2 border rounded-lg z-50 pointer-events-auto shadow-md"
                 placeholder="your@email.com"
                 value={email}

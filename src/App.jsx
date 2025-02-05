@@ -3,7 +3,7 @@ import Navbar from "./component/Navbar";
 import Content from "./component/content";
 import CalendarApp from "./component/libra/caren";
 import Footer from "./component/Footer";
-import RpNotSubmit from "./component/BkNotSubmit";
+
 
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
       <Content />
       <CalendarApp />
       <Footer />
-      {/* <RpNotSubmit /> */}
+
     </div>
   );
 }
