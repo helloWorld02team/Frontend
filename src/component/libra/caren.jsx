@@ -11,6 +11,8 @@ import BasicDateCalendar from './Basiccalender';
 import SearchBox from './Seacrh';
 import { Button } from "@material-tailwind/react";
 import BookingForm from './BookingForm'; 
+import Test from '../Test'
+
 
 const CalendarApp = () => {
   const eventsService = React.useState(() => createEventsServicePlugin())[0];
@@ -78,11 +80,9 @@ const CalendarApp = () => {
         <MenuWithCheckbox />
       </div>
       <div className="flex-1 p-6 ">
-        <div className='flex justify-end mr-20 '>
-          <Button className='text-1xl' onClick={openBookingForm}>จองห้อง</Button>
-        </div>
         <div className="p-4 rounded-lg shadow-lg">
-          <ScheduleXCalendar calendarApp={calendar} />
+          {/* <ScheduleXCalendar calendarApp={calendar} /> */}
+          <Test />
         </div>
       </div>
 

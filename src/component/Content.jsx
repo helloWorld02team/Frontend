@@ -20,7 +20,7 @@ function content() {
         <Link to="/Rooms">
           <button
             button
-            className="bg-[#53E2FF] text-black py-3 px-5 mt-6 rounded-full hover:bg-white hover:cursor-pointer font-bold"
+            className="bg-[#53E2FF] text-black text-xl py-3 px-10 mt-10 rounded-full hover:bg-white hover:cursor-pointer font-bold"
           >
             เริ่มต้นการจอง
           </button>
