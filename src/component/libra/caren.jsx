@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { MenuWithCheckbox } from './MenuList';
 import BasicDateCalendar from './Basiccalender';
 import SearchBox from './Seacrh';
-import Test from '../Test' ;
+
 
 const CalendarApp = () => {
  
@@ -16,7 +16,7 @@ const CalendarApp = () => {
         <MenuWithCheckbox />
       </div>
       <div className="flex-1 p-6 ">
-        <div className=" rounded-lg shadow-lg">
+        
           <Test />
         </div>
       </div>

@@ -77,13 +77,6 @@ function ReportForm() {
       setFormData({ ...formData, [name]: value });
     }
   };
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setFormData({ ...formData, image: imageUrl });
-    }
-  };
 
   const handleClose = () => {
     console.log("ปิดฟอร์ม");
