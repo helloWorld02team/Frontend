@@ -20,7 +20,7 @@ import {
                 }}
                 
                 >
-                <MenuHandler style={{ backgroundImage: 'url(public/sitback.png',backgroundSize:"cover",}} className="mb-3 w-full h-14 text-2xl cursor-pointer">
+                <MenuHandler style={{ backgroundImage: 'url(public/sitback.png',backgroundSize:"cover",backgroundRepeat: "no-repeat",backgroundPosition: "center  "}} className="mb-3 w-full h-14 text-2xl cursor-pointer">
                 <Button >SIT Building
                 </Button>
                 </MenuHandler>
@@ -74,7 +74,7 @@ import {
             <Menu dismiss={{
                 itemPress: false,
                 }}>
-                <MenuHandler style={{ backgroundImage: 'url(public/sitback.png',backgroundSize:"cover",}} className="mb-3 w-full h-14 text-2xl cursor-pointer">
+                <MenuHandler style={{ backgroundImage: 'url(public/Lx_2.jpg',backgroundSize:"cover",backgroundRepeat: "no-repeat",backgroundPosition: "center  "}} className="mb-3 w-full h-14 text-2xl cursor-pointer">
                 <Button>LX
                 </Button>
                 </MenuHandler>
@@ -129,7 +129,7 @@ import {
             <Menu dismiss={{
                 itemPress: false,
                 }}>
-                <MenuHandler style={{ backgroundImage: 'url(public/sitback.png',backgroundSize:"cover",}} className="mb-3 w-full h-14 text-2xl cursor-pointer">
+                <MenuHandler style={{ backgroundImage: 'url(public/cb2.jpg',backgroundSize:"cover",backgroundRepeat: "no-repeat",backgroundPosition: "center 70% "}} className="mb-3 w-full h-14 text-2xl cursor-pointer">
                 <Button>CB
                 </Button>
                 </MenuHandler>

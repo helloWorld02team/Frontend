@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { MenuWithCheckbox } from './MenuList';
 import BasicDateCalendar from './Basiccalender';
 import SearchBox from './Seacrh';
+import Test from '../Test'
 
 
 const CalendarApp = () => {
@@ -20,8 +21,8 @@ const CalendarApp = () => {
           <Test />
         </div>
       </div>
-    </div>
-  );
+    
+    );
 };
 
 export default CalendarApp;
