@@ -15,6 +15,30 @@ const localizer = dateFnsLocalizer({
 });
 
 const Test = () => {
+  const buildingOptions = ["CB2", "LX", "SIT"];
+  const floorOptions = {
+    CB2: ["CB23"],
+    LX: ["LX10", "LX11", "LX12"],
+    SIT: ["SIT1", "SIT3", "SIT4"],
+  };
+  const roomOptions = {
+    CB23: [
+      "CB2301",
+      "CB2304",
+      "CB2305",
+      "CB2306",
+      "CB2308",
+      "CB2312",
+      "CB2313",
+    ],
+    LX10: ["LX10/1", "LX10/2", "LX10/3", "LX10/4", "LX10/5"],
+    LX11: ["LX11/1", "LX11/2", "LX11/3", "LX11/4", "LX11/5"],
+    LX12: ["LX12/1", "LX12/2"],
+    SIT1: ["SIT1/3", "SIT1/5"],
+    SIT3: ["SIT3/1", "SIT3/2", "SIT3/3", "SIT3/4"],
+    SIT4: ["SIT4/2", "SIT4/3"],
+  };
+
   const [events, setEvents] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
@@ -84,6 +108,18 @@ const Test = () => {
     setIsDetailModalOpen(false);
   };
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    if (name === "building") {
+      setNewEvent({ ...newEvent, building: value, floor: "", room: "" });
+    } else if (name === "floor") {
+      setNewEvent({ ...newEvent, floor: value, room: "" });
+    } else {
+      setNewEvent({ ...newEvent, [name]: value });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 p-6">
       <header className="flex justify-between items-center mb-4">
@@ -148,35 +184,56 @@ const Test = () => {
               <div className="mb-4">
                 <label className="block text-sm font-medium">อาคาร</label>
                 <select
+                  name="building"
                   className="w-full p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
                   value={newEvent.building}
-                  onChange={(e) => setNewEvent({ ...newEvent, building: e.target.value })}
-                    >
+                  onChange={handleChange}
+                >
                   <option value="">เลือกอาคาร</option>
-                  <option value="SIT">SIT</option>
-                  <option value="LX">LX</option>
-                  <option value="CB">CB</option>
+                  {buildingOptions.map((building) => (
+                    <option key={building} value={building}>
+                      {building}
+                    </option>
+                  ))}
                 </select>
               </div>
 
               <div className="mb-4">
                 <label className="block text-sm font-medium">ชั้น</label>
-                <input
-                  type="text"
+                <select
+                  name="floor"
                   className="w-full p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
                   value={newEvent.floor}
-                  onChange={(e) => setNewEvent({ ...newEvent, floor: e.target.value })}
-                />
+                  onChange={handleChange}
+                  disabled={!newEvent.building}
+                >
+                  <option value="">เลือกชั้น</option>
+                  {newEvent.building &&
+                    floorOptions[newEvent.building]?.map((floor) => (
+                      <option key={floor} value={floor}>
+                        {floor}
+                      </option>
+                    ))}
+                </select>
               </div>
 
               <div className="mb-4">
                 <label className="block text-sm font-medium">ห้อง</label>
-                <input
-                  type="text"
+                <select
+                  name="room"
                   className="w-full p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
                   value={newEvent.room}
-                  onChange={(e) => setNewEvent({ ...newEvent, room: e.target.value })}
-                />
+                  onChange={handleChange}
+                  disabled={!newEvent.floor}
+                >
+                  <option value="">เลือกห้อง</option>
+                  {newEvent.floor &&
+                    roomOptions[newEvent.floor]?.map((room) => (
+                      <option key={room} value={room}>
+                        {room}
+                      </option>
+                    ))}
+                </select>
               </div>
 
               <div className="mb-4">
