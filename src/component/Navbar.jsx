@@ -1,12 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from "@material-tailwind/react";
 import LoginModal from './libra/LoginModal';
 
 const Navbar = () => {
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen((cur) => !cur);
   const [userName, setUserName] = React.useState(null);
+
+  const handleOpen = () => setOpen((cur) => !cur);
+
+  const handleLogout = () => {
+    localStorage.removeItem("userData");
+    setUserName(null);
+  };
+
+  useEffect(() => {
+    
+    const storedUserData = JSON.parse(localStorage.getItem("userData"));
+    if (storedUserData) {
+      setUserName(storedUserData.username);
+    }
+  }, []);
 
   return (
     <div className='flex justify-between items-center p-4 bg-black shadow-md'>
@@ -14,7 +28,7 @@ const Navbar = () => {
         <div className='border-r-1 pr-2'>
           <span className='text-white text-[15px] font-bold'>Booking<br/>System</span>
         </div>
-        <img src="public/sit.png" alt="" className='w-50'/>
+        <img src="public/sit.png" alt="" className='w-50' />
       </div>
       <div>
         <ul className='flex gap-25 text-[18px] font-bold'>
@@ -33,7 +47,6 @@ const Navbar = () => {
         {userName ? `ยินดีต้อนรับ, ${userName}` : "L0gin"}
       </Button>
       <LoginModal open={open} handleOpen={handleOpen} setUserName={setUserName} />
-      
     </div>
   );
 };
