@@ -16,6 +16,10 @@ const localizer = dateFnsLocalizer({
 });
 
 const CalendarPage = () => {
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const handleDateChange = (date) => {
+    setSelectedDate(date.toDate());
+  };
   const buildingOptions = ["CB2", "LX", "SIT"];
   const floorOptions = {
     CB2: ["CB23"],
@@ -169,6 +173,7 @@ const CalendarPage = () => {
       
           return { style: { backgroundColor, color: "white", borderRadius: "4px", padding: "5px" } };
         }}
+        defaultDate={selectedDate}
       />
 
       {/* Modal for Adding Event */}

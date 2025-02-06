@@ -24,7 +24,7 @@ const CalendarApp = () => {
   };
 
   return (
-    <div className="flex h-screen" style={{ backgroundColor: '#F1F1F1' }}>
+    <div className="flex h-270" style={{ backgroundColor: '#F1F1F1' }}>
       {/* Sidebar */}
       <div className="flex flex-col items-center mt-10 mx-10">
         <SearchBox />
@@ -38,15 +38,23 @@ const CalendarApp = () => {
 
         <div className="h-4/5 p-4 rounded-lg shadow-lg bg-white mt-4">
           <CalendarPage events={events} />
+          <div className='mt-10 flex gap-5 items-center'>
+            <p>อาคาร:</p>
+            <div className='w-[113px] text-center p-2 rounded-2xl' style={{ backgroundColor: '#ABE9FF' }}>SIT building</div>
+            <div className='w-[113px] text-center p-2 rounded-2xl' style={{ backgroundColor: '#FFB692' }}>LX</div>
+            <div className='w-[113px] text-center p-2 rounded-2xl' style={{ backgroundColor: '#F5E460' }}>CB2</div>
+            <p>หมวดหมู่:</p>
+            <div className='w-[113px] text-center p-2 rounded-2xl border-3' >Lecturer</div>
+            <div className='w-[113px] text-center p-2 rounded-2xl border-3' >Staff</div>
+            <div className='w-[113px] text-center p-2 rounded-2xl border-3' >LF</div>
+            <div className='w-[113px] text-center p-2 rounded-2xl border-3' >Student</div>
+          </div>
         </div>
+       
       </div>
+      
 
-      {/* Booking Form */}
-      <BookingForm
-        open={isBookingFormOpen}
-        handleOpen={closeBookingForm}
-        onSubmitEvent={addEventToCalendar}
-      />
+
     </div>
   );
 };

@@ -135,7 +135,7 @@ import {
                 itemPress: false,
                 }}>
                 <MenuHandler style={{ backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(public/cb2.jpg',backgroundSize:"cover",backgroundRepeat: "no-repeat",backgroundPosition: "center 70% "}} className="mb-3 w-full h-14 text-2xl cursor-pointer">
-                <Button>CB
+                <Button>CB2
                 </Button>
                 </MenuHandler>
                 <MenuList className="w-65">
