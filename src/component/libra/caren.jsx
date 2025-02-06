@@ -35,11 +35,6 @@ const CalendarApp = () => {
 
       {/* Main Content */}
       <div className="flex-1 p-6">
-        <div className="flex justify-end mr-20">
-          <Button className="text-xl" onClick={openBookingForm}>
-            จองห้อง
-          </Button>
-        </div>
 
         <div className="h-4/5 p-4 rounded-lg shadow-lg bg-white mt-4">
           <CalendarPage events={events} />
