@@ -2,30 +2,58 @@ import React, { useState, useEffect } from 'react';
 import { MenuWithCheckbox } from './MenuList';
 import BasicDateCalendar from './Basiccalender';
 import SearchBox from './Seacrh';
-import Test from '../Test'
+import { Button } from "@material-tailwind/react";
+import BookingForm from './BookingForm'; 
+import CalendarPage from '../CalendarPage';
 
 
 const CalendarApp = () => {
- 
+  const [isBookingFormOpen, setIsBookingFormOpen] = useState(false);
+  const [events, setEvents] = useState([]);
+
+  const openBookingForm = () => {
+    setIsBookingFormOpen(true);
+  };
+
+  const closeBookingForm = () => {
+    setIsBookingFormOpen(false);
+  };
+
+  const addEventToCalendar = (newEvent) => {
+    setEvents([...events, newEvent]);
+  };
 
   return (
-    <div className="flex h-230 " style={{ backgroundColor: '#F1F1F1' }}>
-      <div className='flex-col items-center mt-10 mx-10 '>
+    <div className="flex h-screen" style={{ backgroundColor: '#F1F1F1' }}>
+      {/* Sidebar */}
+      <div className="flex flex-col items-center mt-10 mx-10">
         <SearchBox />
         <br />
-        <div className='bg-white rounded-2xl shadow-2xl'>
-          <BasicDateCalendar />
-        </div>
-        
+        <BasicDateCalendar />
         <MenuWithCheckbox />
       </div>
-      <div className="flex-1 p-6 ">
-        
-          <Test />
+
+      {/* Main Content */}
+      <div className="flex-1 p-6">
+        <div className="flex justify-end mr-20">
+          <Button className="text-xl" onClick={openBookingForm}>
+            จองห้อง
+          </Button>
+        </div>
+
+        <div className="h-4/5 p-4 rounded-lg shadow-lg bg-white mt-4">
+          <CalendarPage events={events} />
         </div>
       </div>
-    
-    );
+
+      {/* Booking Form */}
+      <BookingForm
+        open={isBookingFormOpen}
+        handleOpen={closeBookingForm}
+        onSubmitEvent={addEventToCalendar}
+      />
+    </div>
+  );
 };
 
 export default CalendarApp;
