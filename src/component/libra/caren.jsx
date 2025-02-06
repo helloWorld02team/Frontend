@@ -39,7 +39,6 @@ const CalendarApp = () => {
           
         <div className="h-250 p-4 rounded-lg shadow-lg bg-white mt-4">
           <CalendarPage events={events} />
-          gf
         </div>
        
       </div>
