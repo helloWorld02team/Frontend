@@ -3,7 +3,7 @@ import Navbar from "./component/Navbar";
 import Content from "./component/Content";
 import CalendarApp from "./component/libra/caren";
 import Footer from "./component/Footer";
-
+import "./App.css"; 
 
 
 function App() {
@@ -18,4 +18,5 @@ function App() {
   );
 }
 
-export default App;
+export default App; 
+

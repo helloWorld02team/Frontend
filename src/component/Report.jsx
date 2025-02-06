@@ -7,7 +7,7 @@ function ReportForm() {
   const [showModal, setShowModal] = useState(false);
   const handleSubmit = async () => {
     try {
-      const response = await fetch("http://localhost:3001/api/report/create", {
+      const response = await fetch("https://www.melivecode.com/api/users/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -226,6 +226,7 @@ function ReportForm() {
               <button
                 className="px-8 py-3 border border-gray-300 rounded-lg w-[200px] shadow-md hover:shadow-lg"
                 onClick={handleClose}
+                type="reset"
               >
                 ยกเลิก
               </button>

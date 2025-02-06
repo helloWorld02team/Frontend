@@ -1,7 +1,34 @@
 import React from 'react'
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
 function Rules() {
+  const navigate = useNavigate();
+  const [termsAccepted, setTermsAccepted] = useState(false);
+  
+  useEffect(() => {
+    const accepted = localStorage.getItem('termsAccepted');
+    if (accepted) {
+      setTermsAccepted(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (termsAccepted) {
+      navigate('/'); // Redirect ไปยังหน้าหลัก ถ้าผู้ใช้ยอมรับแล้ว
+    } else {
+      // ถ้ายังไม่ยอมรับให้แสดง Modal หรือข้อความให้กดยอมรับ
+      alert('กรุณายอมรับข้อตกลงก่อนเข้าใช้งาน');
+    }
+  }, [termsAccepted, navigate]);
+
+  const handleAccept = () => {
+    localStorage.setItem('termsAccepted', true);
+    setTermsAccepted(true);
+  };
+
+
   return (
     <div className="flex h-screen w-full">
       <div className="w-1/2" style={{ backgroundImage: "url('public/sitback.png')", backgroundSize: 'cover', backgroundPosition: 'center' }}>
@@ -37,7 +64,7 @@ function Rules() {
             </div>
 
             <div className="flex justify-center mt-8 space-x-4">
-                <button className="px-6 py-2 bg-[#000000] border-2 border-black text-white rounded-full w-[120px]">
+                <button className="px-6 py-2 bg-[#000000] border-2 border-black text-white rounded-full w-[120px]"  onClick={handleAccept}>
                 ใช่
                 </button>
                 <button className="px-6 py-2 bg-[#615D6C] border-2 border-black text-white rounded-full w-[120px]">

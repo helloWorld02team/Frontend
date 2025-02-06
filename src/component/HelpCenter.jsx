@@ -146,7 +146,7 @@ export default function HelpCenter() {
             <div className="flex gap-6 mt-12">
               <button
                 onClick={() => setIsSystemOpen(true)}
-                className="flex flex-col items-center bg-white p-6 rounded-2xl shadow-md w-60 py-10 hover:bg-gray-200"
+                className="flex flex-col items-center bg-white p-6 rounded-2xl shadow-md w-60 py-10 hover:bg-gray-200 hover:cursor-pointer"
               >
                 <Book size={40} className="text-blue-400" />
                 <p className="mt-4 text-lg font-semibold text-black text-center">
@@ -155,7 +155,7 @@ export default function HelpCenter() {
               </button>
               <button
                 onClick={() => setIsBookOpen(true)}
-                className="flex flex-col items-center bg-white p-6 rounded-2xl shadow-md w-60 py-10 hover:bg-gray-200"
+                className="flex flex-col items-center bg-white p-6 rounded-2xl shadow-md w-60 py-10 hover:bg-gray-200 hover:cursor-pointer"
               >
                 <Calendar size={40} className="text-blue-400" />
                 <p className="mt-4 text-lg font-semibold text-black text-center">
@@ -164,7 +164,7 @@ export default function HelpCenter() {
               </button>
               <button
                 onClick={() => setIsReportOpen(true)}
-                className="flex flex-col items-center bg-white p-6 rounded-2xl shadow-md w-60 py-10 hover:bg-gray-200"
+                className="flex flex-col items-center bg-white p-6 rounded-2xl shadow-md w-60 py-10 hover:bg-gray-200 hover:cursor-pointer"
               >
                 <Flag size={40} className="text-blue-400" />
                 <p className="mt-4 text-lg font-semibold text-black text-center">

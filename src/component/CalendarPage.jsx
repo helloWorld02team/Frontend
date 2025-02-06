@@ -173,7 +173,7 @@ const CalendarPage = () => {
         onSelectEvent={handleSelectEvent}
         style={{ height: 700 }}
         step={30}
-        views={{ week: true, day: true }}
+        views={{ week: true, day: true , }}
         defaultView="week"
         className="rounded-xl"
         min={new Date(2023, 1, 1, 8, 0)}
@@ -204,7 +204,9 @@ const CalendarPage = () => {
         defaultDate={selectedDate}
       />
 
-      <div className="mt-10 flex gap-5 items-center">
+      <div className="mt-5 flex gap-5 items-center">
+
+
         <p>อาคาร:</p>
         <div
           className="w-[113px] text-center p-2 rounded-2xl"

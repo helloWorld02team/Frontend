@@ -12,7 +12,7 @@ import {
   export function MenuWithCheckbox() {
     return (
         <>
-        <div className="px-5 flex-col bg-white rounded-2xl pt-5 shadow-2xl mt-7">
+        <div className="px-5 flex-col bg-white rounded-2xl pt-5 shadow-2xl  w-full h-100">
             <p className="mb-3 font-bold text-2xl ">อาคาร</p>
             <Menu
                 dismiss={{
@@ -25,7 +25,7 @@ import {
                         backgroundSize: "cover",
                         backgroundRepeat: "no-repeat",
                         backgroundPosition: "center"
-                    }} className="mb-3 w-full h-14 text-2xl cursor-pointer">
+                    }} className="mb-3 w-full h-25 text-2xl cursor-pointer">
                 <Button >SIT Building
                 </Button>
                 </MenuHandler>
@@ -79,7 +79,7 @@ import {
             <Menu dismiss={{
                 itemPress: false,
                 }}>
-                <MenuHandler style={{ backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(public/Lx_2.jpg',backgroundSize:"cover",backgroundRepeat: "no-repeat",backgroundPosition: "center  "}} className="mb-3 w-full h-14 text-2xl cursor-pointer">
+                <MenuHandler style={{ backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(public/Lx_2.jpg',backgroundSize:"cover",backgroundRepeat: "no-repeat",backgroundPosition: "center  "}} className="mb-3 w-full  text-2xl cursor-pointer h-25 ">
                 <Button>LX
                 </Button>
                 </MenuHandler>
@@ -134,7 +134,7 @@ import {
             <Menu dismiss={{
                 itemPress: false,
                 }}>
-                <MenuHandler style={{ backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(public/cb2.jpg',backgroundSize:"cover",backgroundRepeat: "no-repeat",backgroundPosition: "center 70% "}} className="mb-3 w-full h-14 text-2xl cursor-pointer">
+                <MenuHandler style={{ backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(public/cb2.jpg',backgroundSize:"cover",backgroundRepeat: "no-repeat",backgroundPosition: "center 70% "}} className="mb-3 w-full h-25  text-2xl cursor-pointer">
                 <Button>CB2
                 </Button>
                 </MenuHandler>
