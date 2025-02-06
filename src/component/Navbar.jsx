@@ -42,9 +42,9 @@ const Navbar = () => {
         color='white'
         onClick={handleOpen}
         variant="gradient"
-        className=' text-black px-15 py-3 rounded-xl hover:bg-[#53E2FF] mr-20 hover:cursor-pointer'
+        className=' text-black px-15 py-3 rounded-xl hover:bg-[#53E2FF] mr-20 hover:cursor-pointer text-1xl'
       >
-        {userName ? `ยินดีต้อนรับ, ${userName}` : "L0gin"}
+        {userName ? `ยินดีต้อนรับ, ${userName}` : "Login"}
       </Button>
       <LoginModal open={open} handleOpen={handleOpen} setUserName={setUserName} />
     </div>
