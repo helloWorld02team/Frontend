@@ -25,11 +25,18 @@ const CalendarApp = () => {
 
   return (
     <div className="flex h-290 " style={{ backgroundColor: '#F1F1F1' }}>
-  
+          <div>
+          <SearchBox />
+          <BasicDateCalendar />
+          <br/>
+          <MenuWithCheckbox />
+          </div>
+         
 
       {/* Main Content */}
       <div className="flex-1 p-6 ">
-
+      
+          
         <div className="h-7/10 p-4 rounded-lg shadow-lg bg-white mt-4">
           <CalendarPage events={events} />
         </div>
