@@ -139,7 +139,7 @@ const CalendarPage = () => {
 
   const CustomEvent = ({ event }) => {
     return (
-      <div className="h-full flex flex-col justify-between p-1">
+      <div className="h-300 flex flex-col justify-between p-1">
         <div className="text-sm text-black">{event.maintitle}</div>
         <div className="text-ml text-white text-center">{event.room}</div>
       </div>
@@ -147,7 +147,7 @@ const CalendarPage = () => {
   };
 
   return (
-    <div className="h-full p-6">
+    <div className="h-500 p-6">
       <header className="flex justify-between items-center mb-4">
         <h1 className="text-3xl font-bold">Booking Room</h1>
       </header>

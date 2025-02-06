@@ -25,7 +25,7 @@ const CalendarApp = () => {
 
   return (
     <div className="flex h-290 " style={{ backgroundColor: '#F1F1F1' }}>
-          <div>
+          <div className='p-5 mt-10'>
           <SearchBox />
           <BasicDateCalendar />
           <br/>
