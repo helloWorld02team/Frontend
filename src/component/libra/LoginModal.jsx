@@ -112,7 +112,7 @@ const LoginModal = ({ open, handleOpen , setUserName}) => {
               />
               <a href="#">ลืมรหัสผ่าน?</a>
             </div>
-            <Button className="w-full bg-[#4EFFF0] text-black text-[15px]" type="submit">
+            <Button className="w-full bg-[#4EFFF0] text-black text-[15px] hover:cursor-pointer" type="submit">
               เข้าสู่ระบบ
             </Button>
           </form>

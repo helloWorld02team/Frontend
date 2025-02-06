@@ -14,12 +14,14 @@ const CalendarApp = () => {
 
   return (
 
-    <div className="flex h-260" style={{ backgroundColor: '#F1F1F1' }}>
+    <div className="flex h-250 pb-5" style={{ backgroundColor: '#F1F1F1' }}>
       {/* Sidebar */}
-      <div className="flex flex-col items-center mt-10 mx-10">
+      <div className="flex flex-col items-center mt-10 mx-7">
         <SearchBox />
         <br />
+        <div className='bg-white mb-5 rounded-2xl shadow-2xl'>
         <BasicDateCalendar />
+        </div>
         <MenuWithCheckbox />
       </div>
 
@@ -33,7 +35,7 @@ const CalendarApp = () => {
       </div>
 
 
-      />
+      
     </div>
   );
 };

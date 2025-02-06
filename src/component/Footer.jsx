@@ -14,7 +14,7 @@ function Footer() {
             <Link to="/Help" className='mx-15'>Help</Link>
         </div>
         <div>
-            <p className='text-2xl font-bold'>School of Infomation Technology</p>
+            <p className='text-2xl font-bold'>School of Information Technology</p>
             <p className='text-[15px] mt-1 text-gray-400'>King MongKut's University of Technology Thonburi</p>
         </div>
       </div>
