@@ -139,15 +139,15 @@ const CalendarPage = () => {
 
   const CustomEvent = ({ event }) => {
     return (
-      <div className="p-1">
-        <div className="text-sm">{event.maintitle}</div>
-        <div className="text-sm">{event.room}</div>
+      <div className="h-full flex flex-col justify-between p-1">
+        <div className="text-sm text-black">{event.maintitle}</div>
+        <div className="text-ml text-white text-center">{event.room}</div>
       </div>
     );
   };
 
   return (
-    <div className="h-full bg-gray-50 p-6">
+    <div className="h-full p-6">
       <header className="flex justify-between items-center mb-4">
         <h1 className="text-3xl font-bold">Booking Room</h1>
       </header>
@@ -182,16 +182,57 @@ const CalendarPage = () => {
           event: CustomEvent,
         }}
         eventPropGetter={(event) => {
-          let backgroundColor = "#3174ad"; // สีเริ่มต้น
-      
-          if (event.building === "CB2") backgroundColor = "#F5E460"; 
-          if (event.building === "LX") backgroundColor = "#FFB692"; 
-          if (event.building === "SIT") backgroundColor = "#ABE9FF"; 
-      
-          return { style: { backgroundColor, color: "white", borderRadius: "4px", padding: "5px" } };
+          let color = "black"; // สีตัวอักษร
+          let eventColor = "#3174ad"; // สีเริ่มต้นของอีเวนต์
+
+          if (event.building === "CB2") eventColor = "#F5E460";
+          if (event.building === "LX") eventColor = "#FFB692";
+          if (event.building === "SIT") eventColor = "#ABE9FF";
+
+          return {
+            style: {
+              background: `linear-gradient(to bottom, ${eventColor} 79%, #000 50%)`,
+              color,
+              border: "none",
+              borderRadius: "20px",
+              padding: "5px",
+            },
+          };
         }}
         defaultDate={selectedDate}
       />
+      <div className="mt-10 flex gap-5 items-center">
+        <p>อาคาร:</p>
+        <div
+          className="w-[113px] text-center p-2 rounded-2xl"
+          style={{ backgroundColor: "#ABE9FF" }}
+        >
+          SIT building
+        </div>
+        <div
+          className="w-[113px] text-center p-2 rounded-2xl"
+          style={{ backgroundColor: "#FFB692" }}
+        >
+          LX
+        </div>
+        <div
+          className="w-[113px] text-center p-2 rounded-2xl"
+          style={{ backgroundColor: "#F5E460" }}
+        >
+          CB2
+        </div>
+        <p>หมวดหมู่:</p>
+        <div className="w-[113px] text-center p-2 rounded-2xl border-3">
+          Lecturer
+        </div>
+        <div className="w-[113px] text-center p-2 rounded-2xl border-3">
+          Staff
+        </div>
+        <div className="w-[113px] text-center p-2 rounded-2xl border-3">LF</div>
+        <div className="w-[113px] text-center p-2 rounded-2xl border-3">
+          Student
+        </div>
+      </div>
 
       {/* Modal for Adding Event */}
       <Dialog open={isModalOpen} onClose={() => setIsModalOpen(false)}>
@@ -203,7 +244,7 @@ const CalendarPage = () => {
                 <form>
                   <div>
                     <textarea
-                      className="w-full text-4xl font-semibold mb-4 p-2 focus:outline-none focus:border-blue-500 resize-none break-words"
+                      className="w-full text-3xl font-semibold mb-3 focus:outline-none focus:border-blue-500 resize-none break-words"
                       placeholder="เพิ่มหัวข้อ..."
                       value={newEvent.maintitle}
                       onChange={(e) =>
@@ -215,7 +256,7 @@ const CalendarPage = () => {
                   </div>
 
                   <div className="mb-4">
-                    <label className="flex gap-2 text-lg font-medium py-2">
+                    <label className="flex gap-2 text-lg font-sm py-2">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         height="24px"
@@ -387,7 +428,7 @@ const CalendarPage = () => {
                     </div>
                   </div>
 
-                  {/* <div className="mb-4">
+                  <div className="mb-4">
                     <label className="inline-flex items-center">
                       <input
                         type="checkbox"
@@ -402,7 +443,7 @@ const CalendarPage = () => {
                       />
                       จองซ้ำทุกสัปดาห์
                     </label>
-                  </div> */}
+                  </div>
 
                   {/* คำอธิบาย */}
                   <div className="bg-[#F1F1F1] flex flex-col space-y-2 rounded-lg">
