@@ -24,20 +24,29 @@ const CalendarApp = () => {
   };
 
   return (
-    <div className="flex h-290 " style={{ backgroundColor: '#F1F1F1' }}>
-  
+    <div className="flex h-260" style={{ backgroundColor: '#F1F1F1' }}>
+      {/* Sidebar */}
+      <div className="flex flex-col items-center mt-10 mx-10">
+        <SearchBox />
+        <br />
+        <BasicDateCalendar />
+        <MenuWithCheckbox />
+      </div>
 
       {/* Main Content */}
-      <div className="flex-1 p-6 ">
+      <div className="flex-1 p-6">
 
-        <div className="h-7/10 p-4 rounded-lg shadow-lg bg-white mt-4">
+        <div className="h-full p-4 rounded-lg shadow-lg bg-white mt-4">
           <CalendarPage events={events} />
         </div>
-       
       </div>
-      
 
-
+      {/* Booking Form */}
+      <BookingForm
+        open={isBookingFormOpen}
+        handleOpen={closeBookingForm}
+        onSubmitEvent={addEventToCalendar}
+      />
     </div>
   );
 };
