@@ -52,7 +52,7 @@ const BookingForm = ({ open, handleOpen }) => {
   
       console.log("Booking Payload:", payload);
     };
-  
+   
 
     return (
       <Dialog
@@ -233,4 +233,3 @@ const BookingForm = ({ open, handleOpen }) => {
   };
   
   export default BookingForm;
-  
