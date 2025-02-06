@@ -151,7 +151,9 @@ const CalendarPage = () => {
       <header className="flex justify-between items-center mb-4">
         <h1 className="text-3xl font-bold">Booking Room</h1>
       </header>
-      <div className="mb-4"> {/* เพิ่ม div wrapper เพื่อจัดวาง DatePicker */}
+      <div className="mb-4">
+        {" "}
+        {/* เพิ่ม div wrapper เพื่อจัดวาง DatePicker */}
         <DatePicker
           selected={selectedDate}
           onChange={handleDateChange}
@@ -169,7 +171,7 @@ const CalendarPage = () => {
         selectable
         onSelectSlot={handleSelectSlot}
         onSelectEvent={handleSelectEvent}
-        style={{ height: 700, }}
+        style={{ height: 700 }}
         step={30}
         views={{ week: true, day: true , }}
         defaultView="week"
@@ -201,7 +203,10 @@ const CalendarPage = () => {
         }}
         defaultDate={selectedDate}
       />
+
       <div className="mt-5 flex gap-5 items-center">
+
+
         <p>อาคาร:</p>
         <div
           className="w-[113px] text-center p-2 rounded-2xl"
@@ -237,14 +242,14 @@ const CalendarPage = () => {
       {/* Modal for Adding Event */}
       <Dialog open={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center rounded-lg">
-          <div className=" w-7/10 h-4/5 flex">
-            <div className="w-full flex flex-row shadow-lg rounded-2xl overflow-hidden z-50">
+          <div className=" w-7/10 h-9/10 flex ">
+            <div className="w-full flex flex-row shadow-lg rounded-2xl z-50 overflow-auto ">
               <LxStart />
               <div className="w-2/3 p-15 bg-white">
-                <form>
+                <form className="">
                   <div>
                     <textarea
-                      className="w-full text-3xl font-semibold mb-3 focus:outline-none focus:border-blue-500 resize-none break-words"
+                      className="w-full text-3xl font-semibold mb-3 focus:outline-none focus:border-blue-500 resize-none break-words "
                       placeholder="เพิ่มหัวข้อ..."
                       value={newEvent.maintitle}
                       onChange={(e) =>
@@ -256,7 +261,7 @@ const CalendarPage = () => {
                   </div>
 
                   <div className="mb-4">
-                    <label className="flex gap-2 text-lg font-sm py-2">
+                    <label className="flex gap-2 font-sm py-2">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         height="24px"
@@ -270,7 +275,7 @@ const CalendarPage = () => {
                     </label>
                     <input
                       type="text"
-                      className="w-2/3 p-2 border border-gray-300 rounded-lg shadow-md focus:ring focus:border-blue-300"
+                      className="w-2/3 p-4 h-7  border border-gray-300 rounded-lg shadow-md focus:ring focus:border-blue-300"
                       value={newEvent.username}
                       onChange={(e) =>
                         setNewEvent({ ...newEvent, username: e.target.value })
@@ -281,12 +286,10 @@ const CalendarPage = () => {
                   {/* ฟอร์มส่วนอื่นๆ */}
                   <div className="grid grid-cols-3 gap-4 mb-4">
                     <div>
-                      <label className="gap-2 text-lg font-medium py-2">
-                        วันที่
-                      </label>
+                      <label className="gap-2 py-2">วันที่</label>
                       <input
                         type="date"
-                        className="w-full p-2 border border-gray-300 rounded-lg shadow-md focus:ring focus:border-blue-300"
+                        className="w-full p-4 h-7 border border-gray-300 rounded-lg shadow-md focus:ring focus:border-blue-300"
                         value={
                           newEvent.start
                             ? new Date(newEvent.start)
@@ -317,12 +320,10 @@ const CalendarPage = () => {
                       />
                     </div>
                     <div>
-                      <label className="gap-2 text-lg font-medium py-2">
-                        เวลาเริ่ม
-                      </label>
+                      <label className="gap-2 py-2">เวลาเริ่ม</label>
                       <input
                         type="time"
-                        className="w-full p-2 border border-gray-300 rounded-lg shadow-md focus:ring focus:border-blue-300"
+                        className="w-full p-4 h-7 border border-gray-300 rounded-lg shadow-md focus:ring focus:border-blue-300"
                         value={
                           newEvent.start
                             ? new Date(newEvent.start)
@@ -341,12 +342,10 @@ const CalendarPage = () => {
                       />
                     </div>
                     <div>
-                      <label className="gap-2 text-lg font-medium py-2">
-                        เวลาสิ้นสุด
-                      </label>
+                      <label className="gap-2 py-2">เวลาสิ้นสุด</label>
                       <input
                         type="time"
-                        className="w-full p-2 border border-gray-300 rounded-lg shadow-md focus:ring focus:border-blue-300"
+                        className="w-full p-4 h-7 border border-gray-300 rounded-lg shadow-md focus:ring focus:border-blue-300"
                         value={
                           newEvent.end
                             ? new Date(newEvent.end).toISOString().slice(11, 16)
@@ -367,12 +366,10 @@ const CalendarPage = () => {
                   {/* ฟอร์มสำหรับเลือกอาคาร ชั้น ห้อง */}
                   <div className="grid grid-cols-3 gap-4 mb-4">
                     <div className="mb-4">
-                      <label className="gap-2 text-lg font-medium py-2">
-                        อาคาร
-                      </label>
+                      <label className="gap-2 py-2">อาคาร</label>
                       <select
                         name="building"
-                        className="w-full p-2 border border-gray-300 rounded-lg shadow-md focus:ring focus:border-blue-300"
+                        className="w-full h-8 px-3 border border-gray-300 rounded-lg shadow-md focus:ring focus:border-blue-300"
                         value={newEvent.building}
                         onChange={handleChange}
                       >
@@ -386,12 +383,10 @@ const CalendarPage = () => {
                     </div>
 
                     <div className="mb-4">
-                      <label className="gap-2 text-lg font-medium py-2">
-                        ชั้น
-                      </label>
+                      <label className="gap-2 py-2">ชั้น</label>
                       <select
                         name="floor"
-                        className="w-full p-2 border border-gray-300 rounded-lg shadow-md focus:ring focus:border-blue-300"
+                        className="w-full h-8 px-3 border border-gray-300 rounded-lg shadow-md focus:ring focus:border-blue-300"
                         value={newEvent.floor}
                         onChange={handleChange}
                         disabled={!newEvent.building}
@@ -407,12 +402,10 @@ const CalendarPage = () => {
                     </div>
 
                     <div className="mb-4">
-                      <label className="gap-2 text-lg font-medium py-2">
-                        ห้อง
-                      </label>
+                      <label className="gap-2 py-2">ห้อง</label>
                       <select
                         name="room"
-                        className="w-full p-2 border border-gray-300 rounded-lg shadow-md focus:ring focus:border-blue-300"
+                        className="w-full h-8 px-3 border border-gray-300 rounded-lg shadow-md focus:ring focus:border-blue-300"
                         value={newEvent.room}
                         onChange={handleChange}
                         disabled={!newEvent.floor}
@@ -427,47 +420,67 @@ const CalendarPage = () => {
                       </select>
                     </div>
                   </div>
-
-                  <div className="mb-4">
-                    <label className="inline-flex items-center">
-                      <input
-                        type="checkbox"
-                        className="mr-2"
-                        checked={newEvent.recurring}
-                        onChange={(e) =>
-                          setNewEvent({
-                            ...newEvent,
-                            recurring: e.target.checked,
-                          })
-                        }
-                      />
-                      จองซ้ำทุกสัปดาห์
-                    </label>
-                  </div>
-
-                  {/* คำอธิบาย */}
+                  
                   <div className="bg-[#F1F1F1] flex flex-col space-y-2 rounded-lg">
                     <textarea
                       name="description"
                       placeholder="คำอธิบาย..."
                       value={newEvent.description}
                       onChange={handleChange}
-                      className="p-3 rounded-lg w-full h-24 resize-none"
+                      className="p-3 rounded-lg w-full h-18 resize-none"
                     />
+                  </div>
+
+                  <div className="grid grid-cols-3 gap-4 mt-4">
+                    <div className="mb-4">
+                      <label className="gap-2 py-2">จองซ้ำ</label>
+                      <select
+                        name="recurring"
+                        className="w-full h-8 px-3 border border-gray-300 rounded-lg shadow-md focus:ring focus:border-blue-300"
+                        value={newEvent.recurring}
+                        onChange={(e) =>
+                          setNewEvent({
+                            ...newEvent,
+                            recurring: e.target.value === "weekly",
+                          })
+                        }
+                      >
+                        <option value="none">ไม่จองซ้ำ</option>
+                        <option value="weekly">จองซ้ำทุกอาทิตย์</option>
+                      </select>
+                    </div>
+
+                    {newEvent.recurring && (
+                      <div className="mb-4">
+                        <label className="gap-2 py-2">จองซ้ำถึงวันที่</label>
+                        <input
+                          type="date"
+                          name="repeatUntil"
+                          className="w-full h-8 px-3 border border-gray-300 rounded-lg shadow-md focus:ring focus:border-blue-300"
+                          value={newEvent.repeatUntil}
+                          onChange={(e) =>
+                            setNewEvent({
+                              ...newEvent,
+                              repeatUntil: e.target.value,
+                            })
+                          }
+                        />
+                      </div>
+                    )}
                   </div>
 
                   {/* ฟอร์มอื่นๆ */}
                   <div className="flex justify-end py-10 gap-5">
                     <button
                       type="button"
-                      className="text-xl px-5 py-3 border border-gray-300 rounded-xl w-[150px] shadow-md hover:shadow-lg"
+                      className="px-5 py-3 border border-gray-300 rounded-xl w-[150px] shadow-md hover:shadow-lg"
                       onClick={() => setIsModalOpen(false)}
                     >
                       ยกเลิก
                     </button>
                     <button
                       type="button"
-                      className="text-xl px-5 py-3 bg-[#4EFFF0] border border-gray-300 rounded-xl w-[150px] shadow-md hover:shadow-lg"
+                      className="px-5 py-3 bg-[#4EFFF0] border border-gray-300 rounded-xl w-[150px] shadow-md hover:shadow-lg"
                       onClick={handleAddEvent}
                     >
                       จองเลย
@@ -633,14 +646,12 @@ const CalendarPage = () => {
                   >
                     ปิด
                   </button>
-                  
                 </div>
               </div>
             </div>
           </div>
         </div>
       </Dialog>
-      
     </div>
   );
 };
