@@ -24,17 +24,11 @@ const CalendarApp = () => {
   };
 
   return (
-    <div className="flex h-270" style={{ backgroundColor: '#F1F1F1' }}>
-      {/* Sidebar */}
-      <div className="flex flex-col items-center mt-10 mx-10">
-        <SearchBox />
-        <br />
-        <BasicDateCalendar />
-        <MenuWithCheckbox />
-      </div>
+    <div className="flex h-290 " style={{ backgroundColor: '#F1F1F1' }}>
+  
 
       {/* Main Content */}
-      <div className="flex-1 p-6">
+      <div className="flex-1 p-6 ">
 
         <div className="h-7/10 p-4 rounded-lg shadow-lg bg-white mt-4">
           <CalendarPage events={events} />

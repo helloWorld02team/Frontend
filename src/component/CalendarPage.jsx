@@ -5,6 +5,8 @@ import { format, parse, startOfWeek, getDay } from "date-fns";
 import th from "date-fns/locale/th";
 import { Dialog } from "@headlessui/react";
 import LxStart from "./libra/LxStart";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const locales = { th };
 const localizer = dateFnsLocalizer({
@@ -17,8 +19,13 @@ const localizer = dateFnsLocalizer({
 
 const CalendarPage = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
+
   const handleDateChange = (date) => {
-    setSelectedDate(date.toDate());
+    setSelectedDate(date);
+  };
+
+  const handleNavigate = (date) => {
+    setSelectedDate(date);
   };
   const buildingOptions = ["CB2", "LX", "SIT"];
   const floorOptions = {
@@ -144,7 +151,15 @@ const CalendarPage = () => {
       <header className="flex justify-between items-center mb-4">
         <h1 className="text-3xl font-bold">Booking Room</h1>
       </header>
-
+      <div className="mb-4"> {/* เพิ่ม div wrapper เพื่อจัดวาง DatePicker */}
+        <DatePicker
+          selected={selectedDate}
+          onChange={handleDateChange}
+          dateFormat="dd/MM/yyyy" // กำหนดรูปแบบวันที่
+          locale="th" // กำหนด locale เป็นภาษาไทย
+          className="border border-gray-300 rounded-lg p-2" // ปรับ CSS นิดหน่อย
+        />
+      </div>
       {/* Calendar Component */}
       <Calendar
         localizer={localizer}
@@ -154,13 +169,15 @@ const CalendarPage = () => {
         selectable
         onSelectSlot={handleSelectSlot}
         onSelectEvent={handleSelectEvent}
-        style={{ height: 500 }}
+        style={{ height: 700, }}
         step={30}
         views={{ week: true, day: true }}
         defaultView="week"
         className="rounded-xl"
         min={new Date(2023, 1, 1, 8, 0)}
-        max={new Date(2023, 1, 1, 22, 0)}
+        max={new Date(2023, 1, 1, 23, 0)}
+        date={selectedDate}
+        onNavigate={handleNavigate}
         components={{
           event: CustomEvent,
         }}
@@ -616,12 +633,14 @@ const CalendarPage = () => {
                   >
                     ปิด
                   </button>
+                  
                 </div>
               </div>
             </div>
           </div>
         </div>
       </Dialog>
+      
     </div>
   );
 };
