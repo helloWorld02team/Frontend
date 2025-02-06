@@ -16,6 +16,10 @@ const localizer = dateFnsLocalizer({
 });
 
 const CalendarPage = () => {
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const handleDateChange = (date) => {
+    setSelectedDate(date.toDate());
+  };
   const buildingOptions = ["CB2", "LX", "SIT"];
   const floorOptions = {
     CB2: ["CB23"],
@@ -147,6 +151,7 @@ const CalendarPage = () => {
         className="border border-gray-200 rounded-lg"
         min={new Date(2023, 1, 1, 8, 0)}
         max={new Date(2023, 1, 1, 22, 0)}
+        defaultDate={selectedDate}
       />
 
       {/* Modal for Adding Event */}

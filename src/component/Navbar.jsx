@@ -15,7 +15,6 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    
     const storedUserData = JSON.parse(localStorage.getItem("userData"));
     if (storedUserData) {
       setUserName(storedUserData.username);
@@ -38,14 +37,28 @@ const Navbar = () => {
           <li><Link to="/Help" className='text-white'>Help</Link></li>
         </ul>
       </div>
-      <Button
-        color='white'
-        onClick={handleOpen}
-        variant="gradient"
-        className=' text-black px-15 py-3 rounded-xl hover:bg-[#53E2FF] mr-20 hover:cursor-pointer text-1xl'
-      >
-        {userName ? `ยินดีต้อนรับ, ${userName}` : "Login"}
-      </Button>
+      {userName ? (
+        <div className="flex gap-4 items-center">
+          <span className="text-white">ยินดีต้อนรับ {userName}</span>
+          <Button
+            color='red'
+            onClick={handleLogout}
+            variant="gradient"
+            className=' text-black px-15 py-3 rounded-xl hover:bg-[#FF5E5E] hover:cursor-pointer text-1xl'
+          >
+            Logout
+          </Button>
+        </div>
+      ) : (
+        <Button
+          color='white'
+          onClick={handleOpen}
+          variant="gradient"
+          className=' text-black px-15 py-3 rounded-xl hover:bg-[#53E2FF] mr-20 hover:cursor-pointer text-1xl'
+        >
+          Login
+        </Button>
+      )}
       <LoginModal open={open} handleOpen={handleOpen} setUserName={setUserName} />
     </div>
   );
