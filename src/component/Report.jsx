@@ -7,14 +7,17 @@ function ReportForm() {
   const [showModal, setShowModal] = useState(false);
   const handleSubmit = async () => {
     try {
-      const response = await fetch("https://www.melivecode.com/api/users/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-  
+      const response = await fetch(
+        "https://www.melivecode.com/api/users/create",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+
       if (response.ok) {
         alert("รายงานถูกส่งเรียบร้อยแล้ว");
         setShowModal(true);
@@ -100,7 +103,7 @@ function ReportForm() {
         }}
       >
         {/* <div className="p-6 min-h-screen flex items-center justify-center"></div> */}
-        <div className="w-full max-w-4xl p-8 bg-white bg-opacity-80 rounded-2xl shadow-md relative">
+        <form className="w-full max-w-4xl p-8 bg-white bg-opacity-80 rounded-2xl shadow-md relative">
           <h2 className="text-2xl font-bold mb-6">Report on Meetings</h2>
           <div className="space-y-6">
             {/* ฟิลด์ข้อมูล */}
@@ -225,19 +228,33 @@ function ReportForm() {
             <div className="flex justify-between">
               <button
                 className="px-8 py-3 border border-gray-300 rounded-lg w-[200px] shadow-md hover:shadow-lg"
-                onClick={handleClose}
                 type="reset"
+                onClick={() =>
+                  setFormData({
+                    reporter: "",
+                    date: "",
+                    building: "",
+                    floor: "",
+                    room: "",
+                    description: "",
+                  })
+                }
               >
-                ยกเลิก
+                รีเซ็ต
               </button>
-              <button className="px-8 py-3 bg-[#4EFFF0] border border-gray-300 rounded-lg w-[200px] shadow-md hover:shadow-lg" onClick={handleSubmit}>
+              <button
+                className="px-8 py-3 bg-[#4EFFF0] border border-gray-300 rounded-lg w-[200px] shadow-md hover:shadow-lg"
+                onClick={handleSubmit}
+              >
                 ส่งรีพอร์ต
               </button>
             </div>
           </div>
-        </div>
+        </form>
       </div>
-      {showModal && <RpSubmit isOpen={showModal} onClose={() => setShowModal(false)} />}
+      {showModal && (
+        <RpSubmit isOpen={showModal} onClose={() => setShowModal(false)} />
+      )}
       <Footer />
     </>
   );

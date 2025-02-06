@@ -27,9 +27,7 @@ const CalendarApp = () => {
 
       {/* Main Content */}
       <div className="flex-1 p-6">
-
         <div className="h-full p-4 rounded-lg shadow-lg bg-white mt-4">
-
           <CalendarPage events={events} />
         </div>
       </div>

@@ -97,25 +97,31 @@ const CalendarPage = () => {
     ];
 
     // Handle recurring event creation
-    if (newEvent.recurring) {
+    if (newEvent.recurring && newEvent.repeatUntil) {
       const recurringEvents = [];
-      for (let i = 1; i <= 4; i++) {
-        const nextWeekStart = new Date(newEvent.start);
-        nextWeekStart.setDate(nextWeekStart.getDate() + i * 7);
-
-        const nextWeekEnd = new Date(newEvent.end);
-        nextWeekEnd.setDate(nextWeekEnd.getDate() + i * 7);
-
-        recurringEvents.push({
-          ...newEvent,
-          start: nextWeekStart,
-          end: nextWeekEnd,
-          id: events.length + i,
-        });
+      let nextStart = new Date(newEvent.start);
+      let nextEnd = new Date(newEvent.end);
+      const repeatUntilDate = new Date(newEvent.repeatUntil);
+    
+      while (nextStart <= repeatUntilDate) {
+        nextStart = new Date(nextStart);
+        nextStart.setDate(nextStart.getDate() + 7);
+    
+        nextEnd = new Date(nextEnd);
+        nextEnd.setDate(nextEnd.getDate() + 7);
+    
+        if (nextStart <= repeatUntilDate) {
+          recurringEvents.push({
+            ...newEvent,
+            start: new Date(nextStart),
+            end: new Date(nextEnd),
+            id: events.length + recurringEvents.length + 1, 
+          });
+        }
       }
       newEvents.push(...recurringEvents);
     }
-
+    
     setEvents((prev) => [...prev, ...newEvents]);
     setIsModalOpen(false);
   };
@@ -139,9 +145,9 @@ const CalendarPage = () => {
 
   const CustomEvent = ({ event }) => {
     return (
-      <div className="h-full flex flex-col justify-between p-1">
-        <div className="text-sm text-black">{event.maintitle}</div>
-        <div className="text-ml text-white text-center">{event.room}</div>
+      <div className="h-full flex flex-col justify-between">
+        <div className="text-sm text-black h-3/4">{event.maintitle}</div>
+        <div className="bg-black text-ml text-white flex justify-center items-center h-1/4 rounded-b-xl">{event.room}</div>
       </div>
     );
   };
@@ -193,13 +199,18 @@ const CalendarPage = () => {
 
           return {
             style: {
-              background: `linear-gradient(to bottom, ${eventColor} 79%, #000 50%)`,
+              background: `linear-gradient(to bottom, ${eventColor} 75%, #000 50%)`,
               color,
               border: "none",
-              borderRadius: "20px",
-              padding: "5px",
+              borderRadius: "8px",
+              width: "100%",
+              height: "100%",
+              display: "flex",
+              alignItems: "flex-start",
+              justifyContent: "flex-start",
             },
           };
+          
         }}
         defaultDate={selectedDate}
       />
@@ -255,7 +266,7 @@ const CalendarPage = () => {
                       onChange={(e) =>
                         setNewEvent({ ...newEvent, maintitle: e.target.value })
                       }
-                      rows={1}
+                      rows={2}
                       wrap="soft"
                     />
                   </div>
@@ -470,17 +481,17 @@ const CalendarPage = () => {
                   </div>
 
                   {/* ฟอร์มอื่นๆ */}
-                  <div className="flex justify-end py-10 gap-5">
+                  <div className="flex justify-end py-5 gap-5">
                     <button
                       type="button"
-                      className="px-5 py-3 border border-gray-300 rounded-xl w-[150px] shadow-md hover:shadow-lg"
+                      className="px-5 py-2 border border-gray-300 rounded-xl w-[150px] shadow-md hover:shadow-lg"
                       onClick={() => setIsModalOpen(false)}
                     >
                       ยกเลิก
                     </button>
                     <button
                       type="button"
-                      className="px-5 py-3 bg-[#4EFFF0] border border-gray-300 rounded-xl w-[150px] shadow-md hover:shadow-lg"
+                      className="px-5 py-2 bg-[#4EFFF0] border border-gray-300 rounded-xl w-[150px] shadow-md hover:shadow-lg"
                       onClick={handleAddEvent}
                     >
                       จองเลย
