@@ -1,8 +1,10 @@
 import { useState } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import RpSubmit from "./RpSubmit";
 
 function ReportForm() {
+  const [showModal, setShowModal] = useState(false);
   const handleSubmit = async () => {
     try {
       const response = await fetch("http://localhost:3001/api/report/create", {
@@ -15,6 +17,7 @@ function ReportForm() {
   
       if (response.ok) {
         alert("รายงานถูกส่งเรียบร้อยแล้ว");
+        setShowModal(true);
         setFormData({
           reporter: "",
           date: new Date().toISOString().split("T")[0],
@@ -233,6 +236,7 @@ function ReportForm() {
           </div>
         </div>
       </div>
+      {showModal && <RpSubmit isOpen={showModal} onClose={() => setShowModal(false)} />}
       <Footer />
     </>
   );
