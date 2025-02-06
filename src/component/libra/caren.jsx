@@ -11,17 +11,6 @@ const CalendarApp = () => {
   const [isBookingFormOpen, setIsBookingFormOpen] = useState(false);
   const [events, setEvents] = useState([]);
 
-  const openBookingForm = () => {
-    setIsBookingFormOpen(true);
-  };
-
-  const closeBookingForm = () => {
-    setIsBookingFormOpen(false);
-  };
-
-  const addEventToCalendar = (newEvent) => {
-    setEvents([...events, newEvent]);
-  };
 
   return (
     <div className="flex h-290 " style={{ backgroundColor: '#F1F1F1' }}>
