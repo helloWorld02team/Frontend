@@ -48,6 +48,7 @@ const CalendarPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
   const [newEvent, setNewEvent] = useState({
+    maintitle: "",
     title: "",
     start: null,
     end: null,
@@ -74,8 +75,8 @@ const CalendarPage = () => {
   };
 
   const handleAddEvent = () => {
-    if (!newEvent.title || !newEvent.start || !newEvent.end) {
-      alert("Please fill all fields before saving.");
+    if (!newEvent.maintitle || !newEvent.username || !newEvent.room) {
+      alert("กรุณากรอกข้อมูลให้ครบถ้วน");
       return;
     }
 
@@ -129,6 +130,15 @@ const CalendarPage = () => {
     }
   };
 
+  const CustomEvent = ({ event }) => {
+    return (
+      <div className="p-1">
+        <div className="text-sm">{event.maintitle}</div>
+        <div className="text-sm">{event.room}</div>
+      </div>
+    );
+  };
+
   return (
     <div className="h-full bg-gray-50 p-6">
       <header className="flex justify-between items-center mb-4">
@@ -148,9 +158,21 @@ const CalendarPage = () => {
         step={30}
         views={{ week: true, day: true }}
         defaultView="week"
-        className="border border-gray-200 rounded-lg"
+        className="rounded-xl"
         min={new Date(2023, 1, 1, 8, 0)}
         max={new Date(2023, 1, 1, 22, 0)}
+        components={{
+          event: CustomEvent,
+        }}
+        eventPropGetter={(event) => {
+          let backgroundColor = "#3174ad"; // สีเริ่มต้น
+      
+          if (event.building === "CB2") backgroundColor = "#F5E460"; 
+          if (event.building === "LX") backgroundColor = "#FFB692"; 
+          if (event.building === "SIT") backgroundColor = "#ABE9FF"; 
+      
+          return { style: { backgroundColor, color: "white", borderRadius: "4px", padding: "5px" } };
+        }}
         defaultDate={selectedDate}
       />
 
@@ -161,8 +183,20 @@ const CalendarPage = () => {
             <div className="w-full flex flex-row shadow-lg rounded-2xl overflow-hidden z-50">
               <LxStart />
               <div className="w-2/3 p-15 bg-white">
-                <h2 className="text-4xl font-semibold mb-4">เพิ่มหัวข้อ...</h2>
                 <form>
+                  <div>
+                    <textarea
+                      className="w-full text-4xl font-semibold mb-4 p-2 focus:outline-none focus:border-blue-500 resize-none break-words"
+                      placeholder="เพิ่มหัวข้อ..."
+                      value={newEvent.maintitle}
+                      onChange={(e) =>
+                        setNewEvent({ ...newEvent, maintitle: e.target.value })
+                      }
+                      rows={1}
+                      wrap="soft"
+                    />
+                  </div>
+
                   <div className="mb-4">
                     <label className="flex gap-2 text-lg font-medium py-2">
                       <svg
@@ -179,9 +213,9 @@ const CalendarPage = () => {
                     <input
                       type="text"
                       className="w-2/3 p-2 border border-gray-300 rounded-lg shadow-md focus:ring focus:border-blue-300"
-                      value={newEvent.title}
+                      value={newEvent.username}
                       onChange={(e) =>
-                        setNewEvent({ ...newEvent, title: e.target.value })
+                        setNewEvent({ ...newEvent, username: e.target.value })
                       }
                     />
                   </div>
@@ -360,7 +394,7 @@ const CalendarPage = () => {
                       placeholder="คำอธิบาย..."
                       value={newEvent.description}
                       onChange={handleChange}
-                      className="p-3 rounded-lg w-full"
+                      className="p-3 rounded-lg w-full h-24 resize-none"
                     />
                   </div>
 
@@ -394,48 +428,154 @@ const CalendarPage = () => {
         onClose={() => setIsDetailModalOpen(false)}
       >
         <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center">
-          <div>
-            <div className="bg-white p-6 rounded-lg w-96">
-              <h2 className="text-2xl font-semibold mb-4">รายละเอียดการจอง</h2>
-              {selectedEvent && (
-                <div>
-                  <p>
-                    <strong>ชื่อการจอง:</strong> {selectedEvent.title}
-                  </p>
-                  <p>
-                    <strong>เวลาเริ่ม:</strong>{" "}
-                    {new Date(selectedEvent.start).toLocaleString()}
-                  </p>
-                  <p>
-                    <strong>เวลาสิ้นสุด:</strong>{" "}
-                    {new Date(selectedEvent.end).toLocaleString()}
-                  </p>
-                  <p>
-                    <strong>อาคาร:</strong> {selectedEvent.building}
-                  </p>
-                  <p>
-                    <strong>ชั้น:</strong> {selectedEvent.floor}
-                  </p>
-                  <p>
-                    <strong>ห้อง:</strong> {selectedEvent.room}
-                  </p>
+          <div className=" w-7/10 h-4/5 flex">
+            <div className="w-full flex flex-row shadow-lg rounded-2xl overflow-hidden z-50">
+              <LxStart />
+              <div className="w-2/3 p-15 bg-white">
+                {selectedEvent && (
+                  <div>
+                    <p className="text-4xl font-semibold mb-4 p-2">
+                      {selectedEvent.maintitle}
+                    </p>
+                    <p className="flex gap-2 text-xl mb-4 p-2">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        height="30px"
+                        viewBox="0 -960 960 960"
+                        width="30px"
+                        fill="#000000"
+                      >
+                        <path d="M234-276q51-39 114-61.5T480-360q69 0 132 22.5T726-276q35-41 54.5-93T800-480q0-133-93.5-226.5T480-800q-133 0-226.5 93.5T160-480q0 59 19.5 111t54.5 93Zm246-164q-59 0-99.5-40.5T340-580q0-59 40.5-99.5T480-720q59 0 99.5 40.5T620-580q0 59-40.5 99.5T480-440Zm0 360q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Z" />
+                      </svg>
+                      {selectedEvent.username}
+                    </p>
+                    <div className="space-y-4 ml-3">
+                      {/* วันที่ */}
+                      <div className="flex items-center gap-4">
+                        <svg
+                          width="20"
+                          height="21"
+                          viewBox="0 0 20 21"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M2.21954 21C1.60917 21 1.08665 20.7944 0.65199 20.3831C0.21733 19.9719 0 19.4775 0 18.9V4.2C0 3.6225 0.21733 3.12812 0.65199 2.71687C1.08665 2.30562 1.60917 2.1 2.21954 2.1H3.32931V0H5.54885V2.1H14.427V0H16.6466V2.1H17.7563C18.3667 2.1 18.8892 2.30562 19.3239 2.71687C19.7585 3.12812 19.9759 3.6225 19.9759 4.2V18.9C19.9759 19.4775 19.7585 19.9719 19.3239 20.3831C18.8892 20.7944 18.3667 21 17.7563 21H2.21954ZM2.21954 18.9H17.7563V8.4H2.21954V18.9ZM2.21954 6.3H17.7563V4.2H2.21954V6.3ZM9.98793 12.6C9.6735 12.6 9.40993 12.4994 9.19722 12.2981C8.98452 12.0969 8.87816 11.8475 8.87816 11.55C8.87816 11.2525 8.98452 11.0031 9.19722 10.8019C9.40993 10.6006 9.6735 10.5 9.98793 10.5C10.3024 10.5 10.5659 10.6006 10.7786 10.8019C10.9914 11.0031 11.0977 11.2525 11.0977 11.55C11.0977 11.8475 10.9914 12.0969 10.7786 12.2981C10.5659 12.4994 10.3024 12.6 9.98793 12.6ZM5.54885 12.6C5.23442 12.6 4.97085 12.4994 4.75814 12.2981C4.54543 12.0969 4.43908 11.8475 4.43908 11.55C4.43908 11.2525 4.54543 11.0031 4.75814 10.8019C4.97085 10.6006 5.23442 10.5 5.54885 10.5C5.86329 10.5 6.12686 10.6006 6.33956 10.8019C6.55227 11.0031 6.65862 11.2525 6.65862 11.55C6.65862 11.8475 6.55227 12.0969 6.33956 12.2981C6.12686 12.4994 5.86329 12.6 5.54885 12.6ZM14.427 12.6C14.1126 12.6 13.849 12.4994 13.6363 12.2981C13.4236 12.0969 13.3172 11.8475 13.3172 11.55C13.3172 11.2525 13.4236 11.0031 13.6363 10.8019C13.849 10.6006 14.1126 10.5 14.427 10.5C14.7415 10.5 15.005 10.6006 15.2177 10.8019C15.4304 11.0031 15.5368 11.2525 15.5368 11.55C15.5368 11.8475 15.4304 12.0969 15.2177 12.2981C15.005 12.4994 14.7415 12.6 14.427 12.6ZM9.98793 16.8C9.6735 16.8 9.40993 16.6994 9.19722 16.4981C8.98452 16.2969 8.87816 16.0475 8.87816 15.75C8.87816 15.4525 8.98452 15.2031 9.19722 15.0019C9.40993 14.8006 9.6735 14.7 9.98793 14.7C10.3024 14.7 10.5659 14.8006 10.7786 15.0019C10.9914 15.2031 11.0977 15.4525 11.0977 15.75C11.0977 16.0475 10.9914 16.2969 10.7786 16.4981C10.5659 16.6994 10.3024 16.8 9.98793 16.8ZM5.54885 16.8C5.23442 16.8 4.97085 16.6994 4.75814 16.4981C4.54543 16.2969 4.43908 16.0475 4.43908 15.75C4.43908 15.4525 4.54543 15.2031 4.75814 15.0019C4.97085 14.8006 5.23442 14.7 5.54885 14.7C5.86329 14.7 6.12686 14.8006 6.33956 15.0019C6.55227 15.2031 6.65862 15.4525 6.65862 15.75C6.65862 16.0475 6.55227 16.2969 6.33956 16.4981C6.12686 16.6994 5.86329 16.8 5.54885 16.8ZM14.427 16.8C14.1126 16.8 13.849 16.6994 13.6363 16.4981C13.4236 16.2969 13.3172 16.0475 13.3172 15.75C13.3172 15.4525 13.4236 15.2031 13.6363 15.0019C13.849 14.8006 14.1126 14.7 14.427 14.7C14.7415 14.7 15.005 14.8006 15.2177 15.0019C15.4304 15.2031 15.5368 15.4525 15.5368 15.75C15.5368 16.0475 15.4304 16.2969 15.2177 16.4981C15.005 16.6994 14.7415 16.8 14.427 16.8Z"
+                            fill="#09090B"
+                          />
+                        </svg>
+                        <span className="font-semibold mx-1">วันที่</span>
+                        <input
+                          type="text"
+                          className="border border-gray-400 rounded-lg p-1 px-3 w-3/10 text-center"
+                          value={new Date(
+                            selectedEvent.start
+                          ).toLocaleDateString("th-TH", {
+                            day: "numeric",
+                            month: "long",
+                            year: "numeric",
+                          })}
+                          readOnly
+                        />
+                      </div>
+
+                      {/* เวลา */}
+
+                      <div className="flex items-center gap-4">
+                        <svg
+                          width="21"
+                          height="21"
+                          viewBox="0 0 21 21"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M13.965 15.435L15.435 13.965L11.55 10.08V5.25H9.45V10.92L13.965 15.435ZM10.5 21C9.0475 21 7.6825 20.7244 6.405 20.1731C5.1275 19.6219 4.01625 18.8737 3.07125 17.9287C2.12625 16.9837 1.37812 15.8725 0.826875 14.595C0.275625 13.3175 0 11.9525 0 10.5C0 9.0475 0.275625 7.6825 0.826875 6.405C1.37812 5.1275 2.12625 4.01625 3.07125 3.07125C4.01625 2.12625 5.1275 1.37812 6.405 0.826875C7.6825 0.275625 9.0475 0 10.5 0C11.9525 0 13.3175 0.275625 14.595 0.826875C15.8725 1.37812 16.9837 2.12625 17.9287 3.07125C18.8737 4.01625 19.6219 5.1275 20.1731 6.405C20.7244 7.6825 21 9.0475 21 10.5C21 11.9525 20.7244 13.3175 20.1731 14.595C19.6219 15.8725 18.8737 16.9837 17.9287 17.9287C16.9837 18.8737 15.8725 19.6219 14.595 20.1731C13.3175 20.7244 11.9525 21 10.5 21ZM10.5 18.9C12.8275 18.9 14.8094 18.0819 16.4456 16.4456C18.0819 14.8094 18.9 12.8275 18.9 10.5C18.9 8.1725 18.0819 6.19062 16.4456 4.55437C14.8094 2.91812 12.8275 2.1 10.5 2.1C8.1725 2.1 6.19062 2.91812 4.55437 4.55437C2.91812 6.19062 2.1 8.1725 2.1 10.5C2.1 12.8275 2.91812 14.8094 4.55437 16.4456C6.19062 18.0819 8.1725 18.9 10.5 18.9Z"
+                            fill="black"
+                          />
+                        </svg>
+                        <span className="font-semibold mx-0.75">เวลา</span>
+                        <input
+                          type="text"
+                          className="border border-gray-400 rounded-lg p-1 px-3 w-3/10 text-center"
+                          value={new Date(
+                            selectedEvent.start
+                          ).toLocaleTimeString("th-TH", {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          })}
+                          readOnly
+                        />
+                        <span className="mx-4">-</span>
+                        <input
+                          type="text"
+                          className="border border-gray-400 rounded-lg p-1 px-3 w-3/10 text-center"
+                          value={new Date(selectedEvent.end).toLocaleTimeString(
+                            "th-TH",
+                            {
+                              hour: "2-digit",
+                              minute: "2-digit",
+                            }
+                          )}
+                          readOnly
+                        />
+                      </div>
+
+                      {/* ชั้นและห้อง */}
+                      <div className="flex items-center gap-4 mb-6">
+                        <svg
+                          width="26"
+                          height="26"
+                          viewBox="0 0 26 26"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M0 24V0H11V5.33333H22V24H0ZM2.2 21.3333H8.8V18.6667H2.2V21.3333ZM2.2 16H8.8V13.3333H2.2V16ZM2.2 10.6667H8.8V8H2.2V10.6667ZM2.2 5.33333H8.8V2.66667H2.2V5.33333ZM11 21.3333H19.8V8H11V21.3333ZM13.2 13.3333V10.6667H17.6V13.3333H13.2ZM13.2 18.6667V16H17.6V18.6667H13.2Z"
+                            fill="#09090B"
+                          />
+                        </svg>
+                        <span className="font-semibold">ชั้นที่</span>
+                        <input
+                          type="text"
+                          className="border border-gray-400 rounded-lg p-1 px-3 w-3/10 text-center"
+                          value={selectedEvent.floor}
+                          readOnly
+                        />
+                        <span className="font-semibold mx-1">ห้อง</span>
+                        <input
+                          type="text"
+                          className="border border-gray-400 rounded-lg p-1 px-3 w-3/10 text-center"
+                          value={selectedEvent.room}
+                          readOnly
+                        />
+                      </div>
+                    </div>
+                    <div className="bg-[#F1F1F1] flex flex-col space-y-2 rounded-lg">
+                      <textarea
+                        value={selectedEvent.description}
+                        className="p-3 rounded-lg w-full h-24 resize-none"
+                        readOnly
+                      />
+                    </div>
+                  </div>
+                )}
+                <div className="flex justify-end py-10 gap-5">
+                  <button
+                    type="button"
+                    className="text-xl px-5 py-3 bg-[#FF0004] text-white border border-gray-300 rounded-xl w-[150px] shadow-md hover:shadow-lg"
+                    onClick={handleDeleteEvent}
+                  >
+                    ลบการจอง
+                  </button>
+                  <button
+                    type="button"
+                    className="text-xl px-5 py-3 bg-[#000000] text-white border border-gray-300 rounded-xl w-[150px] shadow-md hover:shadow-lg"
+                    onClick={() => setIsDetailModalOpen(false)}
+                  >
+                    ปิด
+                  </button>
                 </div>
-              )}
-              <div className="flex justify-end mt-4">
-                <button
-                  type="button"
-                  className="bg-red-600 text-white px-4 py-2 rounded-md mr-2 hover:bg-red-700"
-                  onClick={handleDeleteEvent}
-                >
-                  ลบการจอง
-                </button>
-                <button
-                  type="button"
-                  className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md"
-                  onClick={() => setIsDetailModalOpen(false)}
-                >
-                  ปิด
-                </button>
               </div>
             </div>
           </div>
