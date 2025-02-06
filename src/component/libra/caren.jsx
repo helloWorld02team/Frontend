@@ -11,19 +11,9 @@ const CalendarApp = () => {
   const [isBookingFormOpen, setIsBookingFormOpen] = useState(false);
   const [events, setEvents] = useState([]);
 
-  const openBookingForm = () => {
-    setIsBookingFormOpen(true);
-  };
-
-  const closeBookingForm = () => {
-    setIsBookingFormOpen(false);
-  };
-
-  const addEventToCalendar = (newEvent) => {
-    setEvents([...events, newEvent]);
-  };
 
   return (
+
     <div className="flex h-260" style={{ backgroundColor: '#F1F1F1' }}>
       {/* Sidebar */}
       <div className="flex flex-col items-center mt-10 mx-10">
@@ -37,15 +27,12 @@ const CalendarApp = () => {
       <div className="flex-1 p-6">
 
         <div className="h-full p-4 rounded-lg shadow-lg bg-white mt-4">
+
           <CalendarPage events={events} />
         </div>
       </div>
 
-      {/* Booking Form */}
-      <BookingForm
-        open={isBookingFormOpen}
-        handleOpen={closeBookingForm}
-        onSubmitEvent={addEventToCalendar}
+
       />
     </div>
   );
