@@ -20,6 +20,8 @@ const localizer = dateFnsLocalizer({
 const CalendarPage = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
 
+  const roleOptions = ["Lecturer", "Staff", "LF", "Student"];
+
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
@@ -33,6 +35,7 @@ const CalendarPage = () => {
     LX: ["LX10", "LX11", "LX12"],
     SIT: ["SIT1", "SIT3", "SIT4"],
   };
+
   const roomOptions = {
     CB23: [
       "CB2301",
@@ -88,6 +91,9 @@ const CalendarPage = () => {
       alert("กรุณากรอกข้อมูลให้ครบถ้วน");
       return;
     }
+
+
+   
   
     const postData = {
       name: newEvent.maintitle,
@@ -140,6 +146,7 @@ const CalendarPage = () => {
               });
             }
           }
+
         }
   
         setEvents((prev) => [...prev, ...newEvents]);
@@ -151,7 +158,7 @@ const CalendarPage = () => {
       console.error("Error creating booking:", error);
       alert("เกิดข้อผิดพลาดในการจองห้อง");
     }
-  };
+
 
   const handleDeleteEvent = () => {
     setEvents((prev) => prev.filter((event) => event.id !== selectedEvent.id));
@@ -174,7 +181,9 @@ const CalendarPage = () => {
     return (
       <div className="h-full flex flex-col justify-between">
         <div className="text-sm text-black h-3/4">{event.maintitle}</div>
-        <div className="bg-black text-ml text-white flex justify-center items-center h-1/4 rounded-b-xl">{event.room}</div>
+        <div className="bg-black text-ml text-white flex justify-center items-center h-1/4 rounded-b-xl">
+          {event.room}
+        </div>
       </div>
     );
   };
@@ -206,7 +215,7 @@ const CalendarPage = () => {
         onSelectEvent={handleSelectEvent}
         style={{ height: 700 }}
         step={30}
-        views={{ week: true, day: true , }}
+        views={{ week: true, day: true }}
         defaultView="week"
         className="rounded-xl"
         min={new Date(2023, 1, 1, 8, 0)}
@@ -237,14 +246,11 @@ const CalendarPage = () => {
               justifyContent: "flex-start",
             },
           };
-          
         }}
         defaultDate={selectedDate}
       />
 
       <div className="mt-5 flex gap-5 items-center">
-
-
         <p>อาคาร:</p>
         <div
           className="w-[113px] text-center p-2 rounded-2xl"
@@ -287,7 +293,7 @@ const CalendarPage = () => {
                 <form className="">
                   <div>
                     <textarea
-                      className="w-full text-3xl font-semibold mb-3 focus:outline-none focus:border-blue-500 resize-none break-words "
+                      className="w-full text-[26px] font-semibold mb-3 focus:outline-none focus:border-blue-500 resize-none break-words "
                       placeholder="เพิ่มหัวข้อ..."
                       value={newEvent.maintitle}
                       onChange={(e) =>
@@ -297,28 +303,45 @@ const CalendarPage = () => {
                       wrap="soft"
                     />
                   </div>
-
-                  <div className="mb-4">
-                    <label className="flex gap-2 font-sm py-2">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        height="24px"
-                        viewBox="0 -960 960 960"
-                        width="24px"
-                        fill="#000000"
+                  <div className="grid grid-cols-3 gap-4 mb-4">
+                    <div className="col-span-2">
+                      <label className="flex gap-2 font-sm ">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          height="24px"
+                          viewBox="0 -960 960 960"
+                          width="24px"
+                          fill="#000000"
+                        >
+                          <path d="M234-276q51-39 114-61.5T480-360q69 0 132 22.5T726-276q35-41 54.5-93T800-480q0-133-93.5-226.5T480-800q-133 0-226.5 93.5T160-480q0 59 19.5 111t54.5 93Zm246-164q-59 0-99.5-40.5T340-580q0-59 40.5-99.5T480-720q59 0 99.5 40.5T620-580q0 59-40.5 99.5T480-440Zm0 360q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Z" />
+                        </svg>
+                        ผู้จอง
+                      </label>
+                      <input
+                        type="text"
+                        className="w-full h-8 px-3 border border-gray-300 rounded-lg shadow-md focus:ring focus:border-blue-300"
+                        value={newEvent.username}
+                        onChange={(e) =>
+                          setNewEvent({ ...newEvent, username: e.target.value })
+                        }
+                      />
+                    </div>
+                    <div className="col-span-1">
+                      <label className="gap-2 py-2">บทบาท</label>
+                      <select
+                        name="role"
+                        className="w-full h-8 px-3 border border-gray-300 rounded-lg shadow-md focus:ring focus:border-blue-300"
+                        value={newEvent.role}
+                        onChange={handleChange}
                       >
-                        <path d="M234-276q51-39 114-61.5T480-360q69 0 132 22.5T726-276q35-41 54.5-93T800-480q0-133-93.5-226.5T480-800q-133 0-226.5 93.5T160-480q0 59 19.5 111t54.5 93Zm246-164q-59 0-99.5-40.5T340-580q0-59 40.5-99.5T480-720q59 0 99.5 40.5T620-580q0 59-40.5 99.5T480-440Zm0 360q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Z" />
-                      </svg>
-                      ผู้จอง
-                    </label>
-                    <input
-                      type="text"
-                      className="w-2/3 p-4 h-7  border border-gray-300 rounded-lg shadow-md focus:ring focus:border-blue-300"
-                      value={newEvent.username}
-                      onChange={(e) =>
-                        setNewEvent({ ...newEvent, username: e.target.value })
-                      }
-                    />
+                        <option value="">เลือกบทบาท</option>
+                        {roleOptions.map((role) => (
+                          <option key={role} value={role}>
+                            {role}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
                   </div>
 
                   {/* ฟอร์มส่วนอื่นๆ */}
@@ -458,7 +481,7 @@ const CalendarPage = () => {
                       </select>
                     </div>
                   </div>
-                  
+
                   <div className="bg-[#F1F1F1] flex flex-col space-y-2 rounded-lg">
                     <textarea
                       name="description"
@@ -557,7 +580,9 @@ const CalendarPage = () => {
                         <path d="M234-276q51-39 114-61.5T480-360q69 0 132 22.5T726-276q35-41 54.5-93T800-480q0-133-93.5-226.5T480-800q-133 0-226.5 93.5T160-480q0 59 19.5 111t54.5 93Zm246-164q-59 0-99.5-40.5T340-580q0-59 40.5-99.5T480-720q59 0 99.5 40.5T620-580q0 59-40.5 99.5T480-440Zm0 360q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Z" />
                       </svg>
                       {selectedEvent.username}
+                      <span className="font-semibold text-sm mx-1 bg-[#179EFF] text-white p-0.5 px-5 rounded-full flex items-center">{selectedEvent.role}</span>
                     </p>
+                    
                     <div className="space-y-4 ml-3">
                       {/* วันที่ */}
                       <div className="flex items-center gap-4">
@@ -576,7 +601,7 @@ const CalendarPage = () => {
                         <span className="font-semibold mx-1">วันที่</span>
                         <input
                           type="text"
-                          className="border border-gray-400 rounded-lg p-1 px-3 w-3/10 text-center"
+                          className="border border-gray-400 rounded-lg p-1 px-3 w-3/10 text-center text-sm"
                           value={new Date(
                             selectedEvent.start
                           ).toLocaleDateString("th-TH", {
@@ -606,7 +631,7 @@ const CalendarPage = () => {
                         <span className="font-semibold mx-0.75">เวลา</span>
                         <input
                           type="text"
-                          className="border border-gray-400 rounded-lg p-1 px-3 w-3/10 text-center"
+                          className="border border-gray-400 rounded-lg p-1 px-3 w-3/10 text-center text-sm"
                           value={new Date(
                             selectedEvent.start
                           ).toLocaleTimeString("th-TH", {
@@ -615,10 +640,10 @@ const CalendarPage = () => {
                           })}
                           readOnly
                         />
-                        <span className="mx-4">-</span>
+                        <span className="mx-3.5">-</span>
                         <input
                           type="text"
-                          className="border border-gray-400 rounded-lg p-1 px-3 w-3/10 text-center"
+                          className="border border-gray-400 rounded-lg p-1 px-3 w-3/10 text-center text-sm"
                           value={new Date(selectedEvent.end).toLocaleTimeString(
                             "th-TH",
                             {
@@ -647,14 +672,14 @@ const CalendarPage = () => {
                         <span className="font-semibold">ชั้นที่</span>
                         <input
                           type="text"
-                          className="border border-gray-400 rounded-lg p-1 px-3 w-3/10 text-center"
+                          className="border border-gray-400 rounded-lg p-1 px-3 w-3/10 text-center text-sm"
                           value={selectedEvent.floor}
                           readOnly
                         />
                         <span className="font-semibold mx-1">ห้อง</span>
                         <input
                           type="text"
-                          className="border border-gray-400 rounded-lg p-1 px-3 w-3/10 text-center"
+                          className="border border-gray-400 rounded-lg p-1 px-3 w-3/10 text-center text-sm"
                           value={selectedEvent.room}
                           readOnly
                         />
@@ -669,17 +694,17 @@ const CalendarPage = () => {
                     </div>
                   </div>
                 )}
-                <div className="flex justify-end py-10 gap-5">
+                <div className="flex justify-end py-5 gap-5">
                   <button
                     type="button"
-                    className="text-xl px-5 py-3 bg-[#FF0004] text-white border border-gray-300 rounded-xl w-[150px] shadow-md hover:shadow-lg"
+                    className="text-lg px-5 py-2 bg-[#FF0004] text-white border border-gray-300 rounded-xl w-[150px] shadow-md hover:shadow-lg"
                     onClick={handleDeleteEvent}
                   >
                     ลบการจอง
                   </button>
                   <button
                     type="button"
-                    className="text-xl px-5 py-3 bg-[#000000] text-white border border-gray-300 rounded-xl w-[150px] shadow-md hover:shadow-lg"
+                    className="text-lg px-5 py-2 bg-[#000000] text-white border border-gray-300 rounded-xl w-[150px] shadow-md hover:shadow-lg"
                     onClick={() => setIsDetailModalOpen(false)}
                   >
                     ปิด
