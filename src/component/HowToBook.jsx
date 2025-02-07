@@ -2,7 +2,7 @@ import { X } from "lucide-react";
 
 export default function HowToBook({ setIsOpen }) {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-xs">
       <div className="bg-white rounded-lg shadow-lg max-w-6xl w-full p-10 relative max-h-[80vh] overflow-auto">
         {/* Header */}
         <div className="flex justify-between items-center pb-3">

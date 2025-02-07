@@ -295,7 +295,7 @@ const CalendarPage = () => {
         alert("เกิดข้อผิดพลาดในการเชื่อมต่อกับ API");
       }
     };
-    
+
     fetchEvents();
   }, [selectedDate]);
 
@@ -396,7 +396,7 @@ const CalendarPage = () => {
 
       {/* Modal for Adding Event */}
       <Dialog open={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center rounded-lg">
+        <div className="fixed inset-0 backdrop-blur-xs flex justify-center items-center rounded-lg">
           <div className=" w-7/10 h-9/10 flex ">
             <div className="w-full flex flex-row shadow-lg rounded-2xl z-50 overflow-auto ">
               <LxStart />
