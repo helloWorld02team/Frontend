@@ -11,42 +11,42 @@ const LoginModal = ({ open, handleOpen , setUserName}) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage("");
-  
+
     try {
-      const response = await fetch("https://www.melivecode.com/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username: email, password: password }),
-      });
-  
-      const result = await response.json();
-  
-      if (response.ok) {
-        console.log("ล็อกอินสำเร็จ:", result.message);
-        setUserName(result.user.username);
-  
-        if (rememberMe) {
-          localStorage.setItem("userData", JSON.stringify(result.user));
-          const userData = {
-            token: result.accessToken,
-            username: result.user.username,
-            expiresIn: result.expiresIn,
-          };
-          localStorage.setItem("userData", JSON.stringify(userData));
+        const response = await fetch("http://localhost:3001/api/user/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            credentials:"include",
+            body: JSON.stringify({ userEmail: email, userPassword: password }),
+        });
+
+        const result = await response.json();
+        console.log("Response:", result);
+
+        if (response.ok) {
+            console.log("ล็อกอินสำเร็จ:", result.message);
+
+            // Correctly setting username
+            const userData = {
+                username: result.username, // Ensure this matches your API response
+            };
+
+            if (rememberMe) {
+                localStorage.setItem("userData", JSON.stringify(userData));
+            }
+
+            setUserName(userData.username); // Ensure state updates
+            handleOpen(); // Close modal
+        } else {
+            setErrorMessage(result.message || "เกิดข้อผิดพลาดในการเข้าสู่ระบบ");
         }
-  
-        handleOpen(); // ปิดโมดอล
-      } else {
-        setErrorMessage(result.message || "เกิดข้อผิดพลาดในการเข้าสู่ระบบ");
-      }
     } catch (error) {
-      setErrorMessage("ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ได้");
-      console.error("Error:", error);
+        setErrorMessage("ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ได้");
+        console.error("Error:", error);
     }
-  };
-  
+};
   
 
   useEffect(() => {

@@ -11,15 +11,25 @@ const Navbar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("userData");
+    
     setUserName(null);
   };
 
   useEffect(() => {
-    const storedUserData = JSON.parse(localStorage.getItem("userData"));
+    const storedUserData = localStorage.getItem("userData");
+
     if (storedUserData) {
-      setUserName(storedUserData.username);
+        try {
+            const parsedData = JSON.parse(storedUserData);
+            if (parsedData?.username) {
+                setUserName(parsedData.username);
+            }
+        } catch (error) {
+            console.error("Error parsing userData from localStorage:", error);
+            localStorage.removeItem("userData"); // Reset corrupted data
+        }
     }
-  }, []);
+}, []);
 
   return (
     <div className='flex justify-between items-center p-4 bg-black shadow-md'>
