@@ -16,7 +16,7 @@
     "@material-tailwind/react": "^2.1.10",
     "@mui/material": "^6.4.2",
     "@mui/styled-engine-sc": "^6.4.2",
-    "@mui/x-date-pickers": "^7.25.0",
+    "@mui/x-date-pickers": "^7.26.0",
     "@schedule-x/calendar": "^2.16.1",
     "@schedule-x/drag-and-drop": "^2.16.1",
     "@schedule-x/event-modal": "^2.16.1",
