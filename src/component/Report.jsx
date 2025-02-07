@@ -5,25 +5,47 @@ import RpSubmit from "./RpSubmit";
 
 function ReportForm() {
   const [showModal, setShowModal] = useState(false);
-  const handleSubmit = async () => {
+  const [formData, setFormData] = useState({
+    reporterName: "",
+    time: new Date().toISOString().split("T")[0],  
+    building: "",
+    floor: "",
+    room: "",
+    description: "",   
+    image: null,
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // ป้องกันการรีเฟรชหน้าหรือส่งข้อมูลโดยอัตโนมัติ
+
+    // ตรวจสอบข้อมูลที่จำเป็น
+    if (!formData.reporterName || !formData.time || !formData.building || !formData.floor || !formData.room || !formData.description) {
+      alert("กรุณากรอกข้อมูลทั้งหมดก่อนส่ง!");
+      return;
+    }
+    
     try {
       const response = await fetch(
-        "https://www.melivecode.com/api/users/create",
+        "http://localhost:3001/api/report/create",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(formData),
+          body: JSON.stringify({
+            report: formData.description,      // map ไปที่ report
+            room: formData.room,
+            reporterName: formData.reporterName, // map ไปที่ reporterName
+            time: formData.time,              // map ไปที่ time
+          }),
         }
       );
-
+  
       if (response.ok) {
-        alert("รายงานถูกส่งเรียบร้อยแล้ว");
         setShowModal(true);
         setFormData({
-          reporter: "",
-          date: new Date().toISOString().split("T")[0],
+          reporterName: "",
+          time: new Date().toISOString().split("T")[0],
           building: "",
           floor: "",
           room: "",
@@ -38,15 +60,22 @@ function ReportForm() {
       alert("เกิดข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์");
     }
   };
-  const [formData, setFormData] = useState({
-    reporter: "",
-    date: new Date().toISOString().split("T")[0],
-    building: "",
-    floor: "",
-    room: "",
-    description: "",
-    image: null,
-  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    if (name === "building") {
+      setFormData({ ...formData, building: value, floor: "", room: "" });
+    } else if (name === "floor") {
+      setFormData({ ...formData, floor: value, room: "" });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
+  };
+
+  const handleClose = () => {
+    console.log("ปิดฟอร์ม");
+  };
 
   const buildingOptions = ["CB2", "LX", "SIT"];
   const floorOptions = {
@@ -72,22 +101,6 @@ function ReportForm() {
     SIT4: ["SIT4/2", "SIT4/3"],
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    if (name === "building") {
-      setFormData({ ...formData, building: value, floor: "", room: "" });
-    } else if (name === "floor") {
-      setFormData({ ...formData, floor: value, room: "" });
-    } else {
-      setFormData({ ...formData, [name]: value });
-    }
-  };
-
-  const handleClose = () => {
-    console.log("ปิดฟอร์ม");
-  };
-
   return (
     <>
       <Navbar />
@@ -102,8 +115,10 @@ function ReportForm() {
           height: "100vh",
         }}
       >
-        {/* <div className="p-6 min-h-screen flex items-center justify-center"></div> */}
-        <form className="w-full max-w-4xl p-8 bg-white bg-opacity-80 rounded-2xl shadow-md relative">
+        <form 
+          className="w-full max-w-4xl p-8 bg-white bg-opacity-80 rounded-2xl shadow-md relative"
+          onSubmit={handleSubmit} // ใช้ onSubmit แทน onClick
+        >
           <h2 className="text-2xl font-bold mb-6">Report on Meetings</h2>
           <div className="space-y-6">
             {/* ฟิลด์ข้อมูล */}
@@ -123,8 +138,8 @@ function ReportForm() {
                 </label>
                 <input
                   type="text"
-                  name="reporter"
-                  value={formData.reporter}
+                  name="reporterName"
+                  value={formData.reporterName}
                   onChange={handleChange}
                   className="border border-gray-300 p-3 rounded-lg w-full shadow-md"
                   required
@@ -134,8 +149,8 @@ function ReportForm() {
                 <label className="text-lg font-medium">วันที่</label>
                 <input
                   type="date"
-                  name="date"
-                  value={formData.date}
+                  name="time"
+                  value={formData.time}
                   onChange={handleChange}
                   className="border border-gray-300 p-3 rounded-lg w-full shadow-md"
                 />
@@ -144,7 +159,6 @@ function ReportForm() {
 
             {/* ข้อมูลอาคาร ห้อง และ ชั้น */}
             <div className="grid grid-cols-3 gap-4">
-              {/* อาคาร (ล็อกเป็นอาคาร A) */}
               <div className="flex flex-col space-y-2">
                 <label className="flex gap-2 text-lg font-medium">
                   <svg
@@ -227,12 +241,12 @@ function ReportForm() {
             {/* ปุ่มยกเลิกและส่ง */}
             <div className="flex justify-between">
               <button
-                className="px-8 py-3 border border-gray-300 rounded-lg w-[200px] shadow-md hover:shadow-lg"
+                className="px-8 py-3 border border-gray-300 rounded-lg w-[200px] shadow-md hover:shadow-lg hover:cursor-pointer"
                 type="reset"
                 onClick={() =>
                   setFormData({
-                    reporter: "",
-                    date: "",
+                    reporterName: "",
+                    time: "",
                     building: "",
                     floor: "",
                     room: "",
@@ -243,8 +257,8 @@ function ReportForm() {
                 รีเซ็ต
               </button>
               <button
-                className="px-8 py-3 bg-[#4EFFF0] border border-gray-300 rounded-lg w-[200px] shadow-md hover:shadow-lg"
-                onClick={handleSubmit}
+                className="px-8 py-3 bg-[#4EFFF0] border border-gray-300 rounded-lg w-[200px] shadow-md hover:shadow-lg hover:cursor-pointer"
+                type="submit" // ใช้ type="submit" แทน onClick
               >
                 ส่งรีพอร์ต
               </button>
