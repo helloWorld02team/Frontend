@@ -175,7 +175,7 @@ export default function HelpCenter() {
           </div>
 
           {/* ส่วนคำถามที่พบบ่อย */}
-          <div className="bg-white w-full flex justify-center py-10 mt-15">
+          <div className="bg-white w-full flex justify-center py-10 mt-20">
             <div className="w-full max-w-2xl p-6 rounded-2xl">
               <h2 className="text-2xl font-bold text-black mb-4">
                 คำถามที่พบบ่อย
@@ -194,7 +194,7 @@ export default function HelpCenter() {
                     }`}
                   >
                     <div className="flex justify-between items-center">
-                      <span className="text-black font-medium text-xl">
+                      <span className="text-black font-medium text-lg">
                         {faq.question}
                       </span>
                       <span className="rounded-full p-1">
