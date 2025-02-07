@@ -105,7 +105,7 @@ const CalendarPage = () => {
     };
   
     try {
-      const response = await fetch("http://localhost:3001/api/report/create", {
+      const response = await fetch("https://www.melivecode.com/api/auth/attractions/update", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -158,7 +158,7 @@ const CalendarPage = () => {
       console.error("Error creating booking:", error);
       alert("เกิดข้อผิดพลาดในการจองห้อง");
     }
-
+  };
 
   const handleDeleteEvent = () => {
     setEvents((prev) => prev.filter((event) => event.id !== selectedEvent.id));
