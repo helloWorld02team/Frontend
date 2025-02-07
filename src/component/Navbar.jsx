@@ -9,10 +9,34 @@ const Navbar = () => {
 
   const handleOpen = () => setOpen((cur) => !cur);
 
-  const handleLogout = () => {
-    localStorage.removeItem("userData");
+  const handleLogout = async () => {
     
-    setUserName(null);
+    try {
+      // Make the fetch request to the logout API
+      const response = await fetch('http://localhost:3001/api/user/logout', {
+        method: 'POST', // Assuming it's a POST request for logout
+        headers: {
+          'Content-Type': 'application/json', // Adjust headers if necessary
+          // Add Authorization token or other headers if required
+        },
+        credentials:'include'
+      });
+  
+      // Check if the response is successful (status code 200-299)
+      if (response.ok) {
+        // Remove user data from localStorage
+        localStorage.removeItem("userData");
+        
+        // Clear the user name from the state
+        setUserName(null);
+      } else {
+        // Handle errors, you can show a message to the user
+        console.error('Logout failed:', await response.text());
+      }
+    } catch (error) {
+      // Handle network or other errors
+      console.error('Error during logout:', error);
+    }
   };
 
   useEffect(() => {

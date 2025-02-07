@@ -183,7 +183,7 @@ const CalendarPage = () => {
         setIsModalOpen(false);
       } else {
         console.log(result)
-        alert("ไม่สามารถจองห้องได้: " + result.message);
+        alert("ไม่สามารถจองห้องได้: " + result.error);
       }
     } catch (error) {
       console.error("Error creating booking:", error);
@@ -191,9 +191,35 @@ const CalendarPage = () => {
     }
   };
 
-  const handleDeleteEvent = () => {
-    setEvents((prev) => prev.filter((event) => event.id !== selectedEvent.id));
-    setIsDetailModalOpen(false);
+  const handleDeleteEvent = async () => {
+
+    if (!selectedEvent || !selectedEvent.bookingid) return;
+    
+    try {
+      console.log("delete click")
+      const response = await fetch("http://localhost:3001/api/booking/delete", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ idBooking: selectedEvent.bookingid}), 
+        credentials:'include'
+        // Send booking ID
+      });
+  
+      if (!response.success) {
+        alert("Deleting failed Unauthorized delete")
+        throw new Error("Failed to delete booking");
+        
+      }
+
+      // Remove event from state if API deletion is successful
+      setEvents((prev) => prev.filter((event) => event.id !== selectedEvent.bookingid));
+      setIsDetailModalOpen(false);
+      alert("Booking Deleted!!");
+    } catch (error) {
+      console.error("Error deleting event:", error);
+    }
   };
 
   const handleChange = (e) => {
@@ -257,6 +283,7 @@ const CalendarPage = () => {
             room: event.Room_idRoom,
             description: "",
             recurring: false,
+            bookingid:event.idBooking
           }));
           
           setEvents(parsedEvents);
@@ -268,9 +295,10 @@ const CalendarPage = () => {
         alert("เกิดข้อผิดพลาดในการเชื่อมต่อกับ API");
       }
     };
-
+    
     fetchEvents();
   }, [selectedDate]);
+
   return (
     <div className="h-full p-6">
       <header className="flex justify-between items-center mb-4">
