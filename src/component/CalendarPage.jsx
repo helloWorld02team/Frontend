@@ -81,49 +81,76 @@ const CalendarPage = () => {
     setIsDetailModalOpen(true);
   };
 
-  const handleAddEvent = () => {
-    if (!newEvent.maintitle || !newEvent.username || !newEvent.room) {
+  
+  
+  const handleAddEvent = async () => {
+    if (!newEvent.maintitle || !newEvent.room || !newEvent.start || !newEvent.end) {
       alert("กรุณากรอกข้อมูลให้ครบถ้วน");
       return;
     }
-
-    const newEvents = [
-      {
-        ...newEvent,
-        start: new Date(newEvent.start),
-        end: new Date(newEvent.end),
-        id: events.length,
-      },
-    ];
-
-    // Handle recurring event creation
-    if (newEvent.recurring && newEvent.repeatUntil) {
-      const recurringEvents = [];
-      let nextStart = new Date(newEvent.start);
-      let nextEnd = new Date(newEvent.end);
-      const repeatUntilDate = new Date(newEvent.repeatUntil);
-    
-      while (nextStart <= repeatUntilDate) {
-        nextStart = new Date(nextStart);
-        nextStart.setDate(nextStart.getDate() + 7);
-    
-        nextEnd = new Date(nextEnd);
-        nextEnd.setDate(nextEnd.getDate() + 7);
-    
-        if (nextStart <= repeatUntilDate) {
-          recurringEvents.push({
+  
+    const postData = {
+      name: newEvent.maintitle,
+      timein: newEvent.start.toISOString(),
+      timeout: newEvent.end.toISOString(),
+      room: newEvent.room,
+      repeatType: newEvent.recurring ? "weekly" : "none",
+      repeatEndDate: newEvent.recurring && newEvent.repeatUntil ? newEvent.repeatUntil.toISOString() : null,
+    };
+  
+    try {
+      const response = await fetch("https://www.melivecode.com/api/auth/attractions/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(postData),
+      });
+  
+      const result = await response.json();
+  
+      if (result.success) {
+        alert("จองห้องสำเร็จ!");
+  
+        // สร้าง Event ใหม่และอัปเดต State
+        const newEvents = [
+          {
             ...newEvent,
-            start: new Date(nextStart),
-            end: new Date(nextEnd),
-            id: events.length + recurringEvents.length + 1, 
-          });
+            start: new Date(newEvent.start),
+            end: new Date(newEvent.end),
+            id: events.length,
+          },
+        ];
+  
+        if (newEvent.recurring && newEvent.repeatUntil) {
+          let nextStart = new Date(newEvent.start);
+          let nextEnd = new Date(newEvent.end);
+          const repeatUntilDate = new Date(newEvent.repeatUntil);
+  
+          while (nextStart <= repeatUntilDate) {
+            nextStart.setDate(nextStart.getDate() + 7);
+            nextEnd.setDate(nextEnd.getDate() + 7);
+  
+            if (nextStart <= repeatUntilDate) {
+              newEvents.push({
+                ...newEvent,
+                start: new Date(nextStart),
+                end: new Date(nextEnd),
+                id: events.length + newEvents.length,
+              });
+            }
+          }
         }
+  
+        setEvents((prev) => [...prev, ...newEvents]);
+        setIsModalOpen(false);
+      } else {
+        alert("ไม่สามารถจองห้องได้: " + result.message);
       }
-      newEvents.push(...recurringEvents);
+    } catch (error) {
+      console.error("Error creating booking:", error);
+      alert("เกิดข้อผิดพลาดในการจองห้อง");
     }
-    
-    setEvents((prev) => [...prev, ...newEvents]);
-    setIsModalOpen(false);
   };
 
   const handleDeleteEvent = () => {
