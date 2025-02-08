@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback,useEffect } from "react";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { format, parse, startOfWeek, getDay } from "date-fns";
@@ -7,6 +7,7 @@ import { Dialog } from "@headlessui/react";
 import LxStart from "./libra/LxStart";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { parseISO, addHours } from 'date-fns';
 
 const locales = { th };
 const localizer = dateFnsLocalizer({
@@ -58,6 +59,7 @@ const CalendarPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
   const [newEvent, setNewEvent] = useState({
+
     maintitle: "",
     title: "",
     start: null,
@@ -67,7 +69,33 @@ const CalendarPage = () => {
     room: "",
     description: "",
     recurring: false,
+
   });
+
+
+//   useEffect(() => {
+//     console.log("start fetch")
+//     // Function to fetch data
+//     const fetchData = async () => {
+//         try {
+//           console.log('tr')
+//             const response = await fetch('http://localhost:3001/api/booking/');
+//             const data = await response.json();
+
+//             if (data.success) {
+//                 // Set the events state with the fetched data
+//                 setEvents(data.data);
+//             } else {
+//                 console.error("Error fetching data:", data.message);
+//             }
+//         } catch (error) {
+//             console.error("Error fetching data:", error);
+//         }
+//     };
+
+//     // Call the fetchData function
+//     fetchData();
+// }, []);
 
   const [selectedEvent, setSelectedEvent] = useState(null);
 
@@ -94,33 +122,36 @@ const CalendarPage = () => {
       alert("กรุณากรอกข้อมูลให้ครบถ้วน");
       return;
     }
-
     const postData = {
       name: newEvent.maintitle,
-      timein: newEvent.start.toISOString(),
-      timeout: newEvent.end.toISOString(),
-      room: newEvent.room,
+      BookingTimeIn: newEvent.start.toISOString(),
+      BookingTimeOut: newEvent.end.toISOString(),
+      Room_idRoom: newEvent.room,
+      BookingDesription:newEvent.description,
       repeatType: newEvent.recurring ? "weekly" : "none",
-      repeatEndDate:
-        newEvent.recurring && newEvent.repeatUntil
-          ? newEvent.repeatUntil.toISOString()
-          : null,
+
+      repeatEndDate: newEvent.recurring && newEvent.repeatUntil,
     };
 
     try {
 
-      const response = await fetch("https://www.melivecode.com/api/auth/attractions/update", {
+      const response = await fetch("http://helloworld02.sit.kmutt.ac.th:3001/api/booking/create", {
+
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          
         },
         body: JSON.stringify(postData),
+        credentials: "include",
       });
   
       const result = await response.json();
 
+      console.log(result)
       if (result.success) {
         alert("จองห้องสำเร็จ!");
+        
 
         // สร้าง Event ใหม่และอัปเดต State
         const newEvents = [
@@ -131,6 +162,7 @@ const CalendarPage = () => {
             id: events.length,
           },
         ];
+
 
         if (newEvent.recurring && newEvent.repeatUntil) {
           let nextStart = new Date(newEvent.start);
@@ -152,10 +184,12 @@ const CalendarPage = () => {
           }
         }
 
+
         setEvents((prev) => [...prev, ...newEvents]);
         setIsModalOpen(false);
       } else {
-        alert("ไม่สามารถจองห้องได้: " + result.message);
+        console.log(result)
+        alert("ไม่สามารถจองห้องได้: " + result.error);
       }
     } catch (error) {
       console.error("Error creating booking:", error);
@@ -163,9 +197,35 @@ const CalendarPage = () => {
     }
   };
 
-  const handleDeleteEvent = () => {
-    setEvents((prev) => prev.filter((event) => event.id !== selectedEvent.id));
-    setIsDetailModalOpen(false);
+  const handleDeleteEvent = async () => {
+
+    if (!selectedEvent || !selectedEvent.bookingid) return;
+    
+    try {
+      console.log("delete click")
+      const response = await fetch("http://helloworld02.sit.kmutt.ac.th:3001/api/booking/delete", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ idBooking: selectedEvent.bookingid}), 
+        credentials:'include'
+        // Send booking ID
+      });
+  
+      if (!response.success) {
+        alert("Deleting failed Unauthorized delete")
+        throw new Error("Failed to delete booking");
+        
+      }
+
+      // Remove event from state if API deletion is successful
+      setEvents((prev) => prev.filter((event) => event.id !== selectedEvent.bookingid));
+      setIsDetailModalOpen(false);
+      alert("Booking Deleted!!");
+    } catch (error) {
+      console.error("Error deleting event:", error);
+    }
   };
 
   const handleChange = (e) => {
@@ -190,6 +250,60 @@ const CalendarPage = () => {
       </div>
     );
   };
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const response = await fetch("http://helloworld02.sit.kmutt.ac.th:3001/api/booking/"); 
+        const data = await response.json();
+        
+        if (response.ok) {  
+          const extractRoomInfo = (roomCode) => {
+            let building, floor, room;
+        
+            // Handle CB rooms (e.g., CB2304)
+            if (roomCode.startsWith("CB")) {
+                building = "CB2";  // All CB rooms belong to building "CB"
+                floor = roomCode.slice(3, 4);  // First two digits after 'CB' are the floor
+                room = roomCode.slice(4);      // Remaining digits after floor are the room number
+            }
+            // Handle LX rooms (e.g., LX10/1)
+            else if (roomCode.startsWith("LX")) {
+                building = "LX";  // All LX rooms belong to building "LX"
+                const parts = roomCode.split("/");  // Split by '/'
+                floor = parts[0].slice(2);         // Extract floor number after 'LX'
+                room = parts[1];                   // Room number after '/'
+            }
+            
+            return [building, floor, room];
+        }
+          
+          const parsedEvents = data.data.map((event) => ({
+            ...event,
+            start: addHours(parseISO(event.BookingTimeIn), 7),  // Convert and adjust for UTC+7
+            end: addHours(parseISO(event.BookingTimeOut), 7),
+            maintitle: event.BookingName,
+            title: event.Username,
+            building: extractRoomInfo(event.Room_idRoom)[0],
+            floor: extractRoomInfo(event.Room_idRoom)[1],
+            room: event.Room_idRoom,
+            description: "",
+            recurring: false,
+            bookingid:event.idBooking
+          }));
+          
+          setEvents(parsedEvents);
+        } else {
+          alert("เกิดข้อผิดพลาดในการดึงข้อมูล: " + data.message);
+        }
+      } catch (error) {
+        console.error("Error fetching events:", error);
+        alert("เกิดข้อผิดพลาดในการเชื่อมต่อกับ API");
+      }
+    };
+
+    fetchEvents();
+  }, [selectedDate]);
 
   return (
     <div className="h-full">
@@ -279,7 +393,7 @@ const CalendarPage = () => {
 
       {/* Modal for Adding Event */}
       <Dialog open={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center rounded-lg">
+        <div className="fixed inset-0 backdrop-blur-xs flex justify-center items-center rounded-lg">
           <div className=" w-7/10 h-9/10 flex ">
             <div className="w-full flex flex-row shadow-lg rounded-2xl z-50 overflow-auto ">
               <LxStart />

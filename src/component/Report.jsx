@@ -26,7 +26,7 @@ function ReportForm() {
     
     try {
       const response = await fetch(
-        "http://localhost:3001/api/report/create",
+        "http://helloworld02.sit.kmutt.ac.th:3001/api/report/create",
         {
           method: "POST",
           headers: {
