@@ -127,9 +127,8 @@ const CalendarPage = () => {
       BookingTimeIn: newEvent.start.toISOString(),
       BookingTimeOut: newEvent.end.toISOString(),
       Room_idRoom: newEvent.room,
-      BookingDesription:newEvent.description,
+      BookingDescription:newEvent.description,
       repeatType: newEvent.recurring ? "weekly" : "none",
-
       repeatEndDate: newEvent.recurring && newEvent.repeatUntil,
     };
 
@@ -287,7 +286,7 @@ const CalendarPage = () => {
             building: extractRoomInfo(event.Room_idRoom)[0],
             floor: extractRoomInfo(event.Room_idRoom)[1],
             room: event.Room_idRoom,
-            description: "",
+            description: event.BookingDesription,
             recurring: false,
             bookingid:event.idBooking
           }));
