@@ -271,6 +271,12 @@ const CalendarPage = () => {
                 floor = parts[0].slice(2);         // Extract floor number after 'LX'
                 room = parts[1];                   // Room number after '/'
             }
+            else if(roomCode.startWith("SIT")){
+                building="SIT";
+                const parts = roomCode.split("/");  // Split by '/'
+                floor = parts[0].slice(1);         // Extract floor number after 'LX'
+                room = parts[1];  
+            }
             
             return [building, floor, room];
         }
