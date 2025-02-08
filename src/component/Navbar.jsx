@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Button } from "@material-tailwind/react";
 import LoginModal from './libra/LoginModal';
 
@@ -31,10 +31,10 @@ const Navbar = () => {
       </div>
       <div>
         <ul className='flex gap-25 text-[18px] font-bold'>
-          <li><Link to="/" className='text-white'>Home</Link></li>
-          <li><Link to="/Rooms" className='text-white'>Rooms</Link></li>
-          <li><Link to="/Report" className='text-white'>Report</Link></li>
-          <li><Link to="/Help" className='text-white'>Help</Link></li>
+          <li><Link to="/app" className= {`text-white hover:text-[#53E2FF] ${location.pathname === '/' ? 'underline decoration-[#53E2FF] ' : ''}`}>Home</Link></li>
+          <li><Link to="/Rooms" className={`text-white hover:text-[#53E2FF] ${location.pathname === '/Rooms' ? 'underline decoration-[#53E2FF]' : ''}`}>Rooms</Link></li>
+          <li><Link to="/Report" className={`text-white hover:text-[#53E2FF] ${location.pathname === '/Report' ? 'underline decoration-[#53E2FF]' : ''}`}>Report</Link></li>
+          <li><Link to="/Help" className={`text-white hover:text-[#53E2FF] ${location.pathname === '/Help' ? 'underline decoration-[#53E2FF]' : ''}`}>Help</Link></li>
         </ul>
       </div>
       {userName ? (

@@ -6,6 +6,7 @@ import Footer from "./component/Footer";
 import "./App.css"; 
 
 
+
 function App() {
   return (
     <div>
@@ -13,7 +14,6 @@ function App() {
       <Content />
       <CalendarApp />
       <Footer />
-      
     </div>
   );
 }
