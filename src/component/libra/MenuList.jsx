@@ -149,7 +149,7 @@ export function MenuWithCheckbox() {
           <MenuHandler
             style={{
               backgroundImage:
-                "linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0)), url(public/cb2.jpg",
+                "linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0)), url(/cb2.jpg",
               backgroundSize: "150%",
               backgroundRepeat: "no-repeat",
               backgroundPosition: "center 70% ",

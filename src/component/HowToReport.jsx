@@ -2,7 +2,7 @@ import { X } from "lucide-react";
 
 export default function HowToReport({ setIsOpen }) {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-xs">
       <div className="bg-white rounded-lg shadow-lg max-w-6xl w-full p-10 relative max-h-[80vh] overflow-auto">
         {/* Header */}
         <div className="flex justify-between items-center pb-3">
@@ -18,7 +18,7 @@ export default function HowToReport({ setIsOpen }) {
             <img src="/Report/Report1.png" alt="" className="w-4/5 mx-auto py-5" />
           </p>
           <p className="">2. จากนั้นทำการกรอกรายละเอียดให้ครบถ้วน จากนั้นกด “ส่งรีพอร์ต”
-            <img src="public/Report/Report2.png" alt="" className="w-4/5 mx-auto py-5" />
+            <img src="/Report/Report2.png" alt="" className="w-4/5 mx-auto py-5" />
           </p>
         </div>
 

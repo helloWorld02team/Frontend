@@ -6,7 +6,7 @@ function RpNotSubmit() {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed inset-0 flex items-center justify-center backdrop-blur-xs">
       <div className="relative w-full py-10 max-w-xl p-8 bg-white rounded-2xl shadow-2xl">
         <button
           className="absolute top-6 right-6 text-gray-500 hover:text-gray-700 text-2xl"

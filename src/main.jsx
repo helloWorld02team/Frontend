@@ -13,7 +13,9 @@ import Rules from './component/Rules.jsx';
 // แก้ไขการตรวจสอบ termsAccepted จาก localStorage
 const termsAccepted = localStorage.getItem('termsAccepted') === 'true';
 
+
 const router = createBrowserRouter([
+
   {
     path: "/",
     element: <Navigate to="/rules" replace />
