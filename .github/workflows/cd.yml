@@ -16,7 +16,7 @@ jobs:
 
       - name: Install dependencies and build Vite project
         run: |
-          npm ci
+          npm i
           npm run build
 
       - name: Debug build output
