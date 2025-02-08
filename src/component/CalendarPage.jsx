@@ -670,7 +670,7 @@ const CalendarPage = () => {
         open={isDetailModalOpen}
         onClose={() => setIsDetailModalOpen(false)}
       >
-        <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center">
+        <div className="fixed inset-0 backdrop-blur-xs bg-opacity-30 flex justify-center items-center">
           <div className=" w-7/10 h-4/5 flex">
             <div className="w-full flex flex-row shadow-lg rounded-2xl overflow-hidden z-50">
               <LxStart />

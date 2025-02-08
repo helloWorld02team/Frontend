@@ -12,10 +12,10 @@ const CalendarApp = () => {
 
   return (
     <div
-      className="flex h-full w-full px-15 py-15"
+      className="h-full w-full px-15 py-15"
       style={{ backgroundColor: "#F1F1F1" }}
     >
-      {/* Sidebar */}
+      {/* Sidebar
       <div className="flex flex-col items-center">
         <div className="bg-white rounded-xl shadow-lg w-full">
           <SearchBox />
@@ -27,7 +27,7 @@ const CalendarApp = () => {
         <div className="bg-white rounded-xl shadow-lg w-full h-full">
           <MenuWithCheckbox />
         </div>
-      </div>
+      </div> */}
 
       {/* Main Content */}
       <div className="flex-1 p-6 rounded-xl shadow-lg bg-white mx-5">
