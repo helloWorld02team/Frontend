@@ -26,7 +26,7 @@ function ReportForm() {
     
     try {
       const response = await fetch(
-        "http://localhost:3001/api/report/create",
+        "http://helloworld02.sit.kmutt.ac.th:3001/api/report/create",
         {
           method: "POST",
           headers: {
@@ -107,7 +107,7 @@ function ReportForm() {
       <div
         className="p-6 min-h-screen flex items-center justify-center"
         style={{
-          backgroundImage: 'url("public/sitback.png")',
+          backgroundImage: 'url("/sitback.png")',
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",

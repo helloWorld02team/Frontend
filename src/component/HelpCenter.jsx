@@ -63,7 +63,7 @@ export default function HelpCenter() {
           ซึ่งตามปกติแล้วในแต่ละภาคการศึกษานั้น นักบริการการศึกษาของคณะฯ
           มีสิทธิ์ ในการจองห้องก่อน เพื่อใช้ในการจัดตารางการเรียนการสอน
           จากนั้นจึงจะเปิดระบบให้พนักงานอื่น ๆ ได้จองต่อตลอดภาคการศึกษา
-          <img src="public/Help/Help3.png" alt="" className="p-5" />
+          <img src="/Help/Help3.png" alt="" className="p-5" />
         </>
       ),
     },
@@ -108,7 +108,7 @@ export default function HelpCenter() {
           การดูเวลาในการจองห้องนั้น ในแต่ละช่องคือ 1 ชั่วโมง เช่น จองห้อง 2 ชม.
           คือ 10:00 - 12:00 น. สีที่ Highlight ที่เกิดขึ้นจะครอบคลุม 2 ช่อง
           ดังรูป
-          <img src="public/Help/Help5.png" alt="" className="p-5 px-20" />
+          <img src="/Help/Help5.png" alt="" className="p-5 px-20" />
         </>
       ),
     },

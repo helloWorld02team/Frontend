@@ -6,7 +6,7 @@ function content() {
     <div
       className=" h-165 items-center flex justify-center"
       style={{
-        backgroundImage: "url(public/sitback.png",
+        backgroundImage: "url(/sitback.png",
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "bottom",
