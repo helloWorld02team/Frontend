@@ -194,7 +194,7 @@ const CalendarPage = () => {
   return (
     <div className="h-full">
       <header className="flex justify-between items-center mb-4">
-        <h1 className="text-3xl font-bold">Booking Room</h1><DatePicker
+        <h1 className="text-3xl font-bold">Booking Rooms</h1><DatePicker
           selected={selectedDate}
           onChange={handleDateChange}
           dateFormat="dd/MM/yyyy"
