@@ -34,39 +34,32 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    const checkTokenExpiration = () => {
-      const storedUserData = localStorage.getItem("userData");
-
-      if (storedUserData) {
-        try {
-          const parsedData = JSON.parse(storedUserData);
-          if (parsedData?.token) {
-            setToken(parsedData.token);
-            const decodedToken = jwtDecode(parsedData.token);
-
-            if (decodedToken?.exp * 1000 < Date.now()) {
-              alert("Token expired. Logging out...");
-              handleLogout();
-            } else {
-              setUserName(parsedData.username);
-            }
-          }
-        } catch (error) {
-          console.error("Error parsing userData from localStorage:", error);
-          localStorage.removeItem("userData"); // Reset corrupted data
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch('http://helloworld02.sit.kmutt.ac.th:3001/api/user/getuserdata', {
+          method: 'GET',
+          credentials: 'include', // Ensure cookies are sent
+        });
+  
+        const data = await response.json();
+  
+        if (response.ok) {
+          setUserName(data.username);
+          localStorage.setItem("userData", JSON.stringify(data));
+        } else if (data.expired) {
+          console.warn("Token expired, logging out...");
+          alert("Session expired. Please log in again.");
+          handleLogout(); // Log user out
+        } else {
+          console.error('Failed to fetch user data:', data.message);
         }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
       }
     };
-
-    // Run token check every minute
-    const interval = setInterval(checkTokenExpiration, 60000);
-
-    // Run check immediately on load
-    checkTokenExpiration();
-
-    return () => clearInterval(interval);
+  
+    fetchUserData();
   }, []);
-
   return (
     <div className='flex justify-between items-center p-4 bg-black shadow-md'>
       <div className='ml-20 flex'>
