@@ -61,7 +61,7 @@ const Navbar = () => {
         <div className='border-r-1 pr-2'>
           <span className='text-white text-[15px] font-bold'>Booking<br/>System</span>
         </div>
-        <img src="public/sit.png" alt="" className='w-50' />
+        <img src="/sit.png" alt="" className='w-50' />
       </div>
       <div>
         <ul className='flex gap-25 text-[18px] font-bold'>

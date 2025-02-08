@@ -107,7 +107,7 @@ function ReportForm() {
       <div
         className="p-6 min-h-screen flex items-center justify-center"
         style={{
-          backgroundImage: 'url("public/sitback.png")',
+          backgroundImage: 'url("/sitback.png")',
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",

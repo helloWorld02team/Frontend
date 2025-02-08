@@ -212,10 +212,9 @@ const CalendarPage = () => {
         // Send booking ID
       });
   
-      if (!response.success) {
+      if (response.success) {
         alert("Deleting failed Unauthorized delete")
         throw new Error("Failed to delete booking");
-        
       }
 
       // Remove event from state if API deletion is successful
@@ -255,11 +254,10 @@ const CalendarPage = () => {
       try {
         const response = await fetch("http://helloworld02.sit.kmutt.ac.th:3001/api/booking/"); 
         const data = await response.json();
-        
+        console.log(data.data)
         if (response.ok) {  
           const extractRoomInfo = (roomCode) => {
             let building, floor, room;
-        
             // Handle CB rooms (e.g., CB2304)
             if (roomCode.startsWith("CB")) {
                 building = "CB2";  // All CB rooms belong to building "CB"

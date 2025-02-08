@@ -6,7 +6,7 @@ function Footer() {
     <footer className='bg-black py-9'>
       <div className='text-white pt-3 py-auto  text-center flex flex-col items-center '>
         <div className=''>
-            <img src="public/SIT LOGO White.png" alt="" className='w-100'/>
+            <img src="/SIT LOGO White.png" alt="" className='w-100'/>
         </div>
         <div className='my-7 font-bold text-2xl'>
             <Link to="/Rooms" className='mx-15'>Rooms</Link> |
