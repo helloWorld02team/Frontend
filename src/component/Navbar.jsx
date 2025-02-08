@@ -31,7 +31,7 @@ const Navbar = () => {
       </div>
       <div>
         <ul className='flex gap-25 text-[18px] font-bold'>
-          <li><Link to="/app" className= {`text-white hover:text-[#53E2FF] ${location.pathname === '/' ? 'underline decoration-[#53E2FF] ' : ''}`}>Home</Link></li>
+          <li><Link to="/app" className= {`text-white hover:text-[#53E2FF] ${location.pathname === '/app' ? 'underline decoration-[#53E2FF] ' : ''}`}>Home</Link></li>
           <li><Link to="/Rooms" className={`text-white hover:text-[#53E2FF] ${location.pathname === '/Rooms' ? 'underline decoration-[#53E2FF]' : ''}`}>Rooms</Link></li>
           <li><Link to="/Report" className={`text-white hover:text-[#53E2FF] ${location.pathname === '/Report' ? 'underline decoration-[#53E2FF]' : ''}`}>Report</Link></li>
           <li><Link to="/Help" className={`text-white hover:text-[#53E2FF] ${location.pathname === '/Help' ? 'underline decoration-[#53E2FF]' : ''}`}>Help</Link></li>
