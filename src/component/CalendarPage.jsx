@@ -112,17 +112,16 @@ const CalendarPage = () => {
     setIsDetailModalOpen(true);
   };
 
-  
-  
   const handleAddEvent = async () => {
-    if (!newEvent.maintitle || !newEvent.room || !newEvent.start || !newEvent.end) {
+    if (
+      !newEvent.maintitle ||
+      !newEvent.room ||
+      !newEvent.start ||
+      !newEvent.end
+    ) {
       alert("กรุณากรอกข้อมูลให้ครบถ้วน");
       return;
     }
-
-
-   
-    
     const postData = {
       name: newEvent.maintitle,
       BookingTimeIn: newEvent.start.toISOString(),
@@ -130,11 +129,14 @@ const CalendarPage = () => {
       Room_idRoom: newEvent.room,
       BookingDesription:newEvent.description,
       repeatType: newEvent.recurring ? "weekly" : "none",
+
       repeatEndDate: newEvent.recurring && newEvent.repeatUntil,
     };
-  
+
     try {
+
       const response = await fetch("http://helloworld02.sit.kmutt.ac.th:3001/api/booking/create", {
+
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -145,10 +147,12 @@ const CalendarPage = () => {
       });
   
       const result = await response.json();
+
       console.log(result)
       if (result.success) {
         alert("จองห้องสำเร็จ!");
         
+
         // สร้าง Event ใหม่และอัปเดต State
         const newEvents = [
           {
@@ -158,28 +162,29 @@ const CalendarPage = () => {
             id: events.length,
           },
         ];
-  
-        // if (newEvent.recurring && newEvent.repeatUntil) {
-        //   let nextStart = new Date(newEvent.start);
-        //   let nextEnd = new Date(newEvent.end);
-        //   const repeatUntilDate = new Date(newEvent.repeatUntil);
-  
-        //   while (nextStart <= repeatUntilDate) {
-        //     nextStart.setDate(nextStart.getDate() + 7);
-        //     nextEnd.setDate(nextEnd.getDate() + 7);
-  
-        //     if (nextStart <= repeatUntilDate) {
-        //       newEvents.push({
-        //         ...newEvent,
-        //         start: new Date(nextStart),
-        //         end: new Date(nextEnd),
-        //         id: events.length + newEvents.length,
-        //       });
-        //     }
-        //   }
 
-        // }
-  
+
+        if (newEvent.recurring && newEvent.repeatUntil) {
+          let nextStart = new Date(newEvent.start);
+          let nextEnd = new Date(newEvent.end);
+          const repeatUntilDate = new Date(newEvent.repeatUntil);
+
+          while (nextStart <= repeatUntilDate) {
+            nextStart.setDate(nextStart.getDate() + 7);
+            nextEnd.setDate(nextEnd.getDate() + 7);
+
+            if (nextStart <= repeatUntilDate) {
+              newEvents.push({
+                ...newEvent,
+                start: new Date(nextStart),
+                end: new Date(nextEnd),
+                id: events.length + newEvents.length,
+              });
+            }
+          }
+        }
+
+
         setEvents((prev) => [...prev, ...newEvents]);
         setIsModalOpen(false);
       } else {
@@ -301,20 +306,18 @@ const CalendarPage = () => {
   }, [selectedDate]);
 
   return (
-    <div className="h-full p-6">
+    <div className="h-full">
       <header className="flex justify-between items-center mb-4">
-        <h1 className="text-3xl font-bold">Booking Room</h1>
-      </header>
-      <div className="mb-4">
-        {" "}
-        {/* เพิ่ม div wrapper เพื่อจัดวาง DatePicker */}
-        <DatePicker
+        <h1 className="text-3xl font-bold">Booking Rooms</h1><DatePicker
           selected={selectedDate}
           onChange={handleDateChange}
-          dateFormat="dd/MM/yyyy" // กำหนดรูปแบบวันที่
-          locale="th" // กำหนด locale เป็นภาษาไทย
-          className="border border-gray-300 rounded-lg p-2" // ปรับ CSS นิดหน่อย
+          dateFormat="dd/MM/yyyy"
+          locale="th"
+          className="border border-gray-300 rounded-lg p-2"
         />
+      </header>
+      <div>
+        
       </div>
       {/* Calendar Component */}
       <Calendar
@@ -362,37 +365,30 @@ const CalendarPage = () => {
         defaultDate={selectedDate}
       />
 
-      <div className="mt-5 flex gap-5 items-center">
-        <p>อาคาร:</p>
-        <div
-          className="w-[113px] text-center p-2 rounded-2xl"
-          style={{ backgroundColor: "#ABE9FF" }}
-        >
-          SIT building
-        </div>
-        <div
-          className="w-[113px] text-center p-2 rounded-2xl"
-          style={{ backgroundColor: "#FFB692" }}
-        >
+      <div className="flex items-center space-x-3 py-5 pl-5">
+        <span>อาคาร:</span>
+        <span className="bg-[#ABE9FF] text-[#2A82A1] px-4 py-1 rounded-full font-medium">
+          SIT Building
+        </span>
+        <span className="bg-[#FFB692] text-[#C74200] px-4 py-1 rounded-full font-medium">
           LX
-        </div>
-        <div
-          className="w-[113px] text-center p-2 rounded-2xl"
-          style={{ backgroundColor: "#F5E460" }}
-        >
+        </span>
+        <span className="bg-[#F5E460] text-[#8E6F09] px-4 py-1 rounded-full font-medium">
           CB2
-        </div>
-        <p>หมวดหมู่:</p>
-        <div className="w-[113px] text-center p-2 rounded-2xl border-3">
+        </span>
+        <span className="ml-3">หมวดหมู่:</span>
+        <span className="text-center border-3 px-4 py-1 rounded-full font-medium">
           Lecturer
-        </div>
-        <div className="w-[113px] text-center p-2 rounded-2xl border-3">
+        </span>
+        <span className="text-center border-3 px-4 py-1 rounded-full font-medium">
           Staff
-        </div>
-        <div className="w-[113px] text-center p-2 rounded-2xl border-3">LF</div>
-        <div className="w-[113px] text-center p-2 rounded-2xl border-3">
+        </span>
+        <span className="text-center border-3 px-4 py-1 rounded-full font-medium">
+          LF
+        </span>
+        <span className="text-center border-3 px-4 py-1 rounded-full font-medium">
           Student
-        </div>
+        </span>
       </div>
 
       {/* Modal for Adding Event */}
@@ -692,9 +688,11 @@ const CalendarPage = () => {
                         <path d="M234-276q51-39 114-61.5T480-360q69 0 132 22.5T726-276q35-41 54.5-93T800-480q0-133-93.5-226.5T480-800q-133 0-226.5 93.5T160-480q0 59 19.5 111t54.5 93Zm246-164q-59 0-99.5-40.5T340-580q0-59 40.5-99.5T480-720q59 0 99.5 40.5T620-580q0 59-40.5 99.5T480-440Zm0 360q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Z" />
                       </svg>
                       {selectedEvent.username}
-                      <span className="font-semibold text-sm mx-1 bg-[#179EFF] text-white p-0.5 px-5 rounded-full flex items-center">{selectedEvent.role}</span>
+                      <span className="font-semibold text-sm mx-1 bg-[#179EFF] text-white p-0.5 px-5 rounded-full flex items-center">
+                        {selectedEvent.role}
+                      </span>
                     </p>
-                    
+
                     <div className="space-y-4 ml-3">
                       {/* วันที่ */}
                       <div className="flex items-center gap-4">

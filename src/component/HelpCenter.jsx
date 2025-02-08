@@ -116,113 +116,123 @@ export default function HelpCenter() {
 
   return (
     <>
-      <Navbar />
-      <div className="bg-white min-h-screen flex flex-col items-center">
-        <div className="w-full">
-          {/* ส่วนหัว */}
-          <div
-            className="bg-gradient-to-b p-10 text-white flex flex-col items-center"
-            style={{
-              backgroundImage:
-                'url("/abstract-saturated-psychedelic-vivid-background.jpg")',
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat",
-              width: "100vw",
-              height: "40vh",
-            }}
-          >
-            <h1 className="text-4xl font-bold mt-10">
-              สวัสดี! มีอะไรให้เราช่วยเหลือไหม
-            </h1>
+      <div className="h-full grid grid-rows-[auto_auto_auto]">
+        <Navbar />
+        <div className="bg-white  flex flex-col">
+          <div className="flex flex-col items-center w-full">
+            {/* ส่วนหัว */}
+            <div
+              className="bg-gradient-to-b p-10 w-full flex flex-col items-center"
+              style={{
+                backgroundImage:
+                  'linear-gradient(to bottom, transparent 30%, white 20%), url("/abstract-saturated-psychedelic-vivid-background.jpg")',
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+                height: "auto",
+              }}
+            >
+              <div className="text-white flex flex-col items-center">
+                <h1 className="text-4xl font-bold mt-10">
+                  สวัสดี! มีอะไรให้เราช่วยเหลือไหม
+                </h1>
 
-            {/* ปุ่มติดต่อทีมงาน */}
-            <button className="mt-6 flex items-center gap-2 bg-white text-black font-semibold py-3 px-10 rounded-full shadow-md">
-              <MessageSquare size={20} className="text-blue-500" />
-              ติดต่อ Software Team
-            </button>
+                {/* ปุ่มติดต่อทีมงาน */}
+                <button className="mt-6 flex items-center gap-2 bg-white text-black font-semibold py-3 px-10 rounded-full shadow-md">
+                  <MessageSquare size={20} className="text-blue-500" />
+                  ติดต่อ Software Team
+                </button>
+              </div>
 
-            {/* ปุ่มเปิด modal */}
-            <div className="flex gap-6 mt-12">
-              <button
-                onClick={() => setIsSystemOpen(true)}
-                className="flex flex-col items-center bg-white p-6 rounded-2xl shadow-md w-60 py-10 hover:bg-gray-200 hover:cursor-pointer"
-              >
-                <Book size={40} className="text-blue-400" />
-                <p className="mt-4 text-lg font-semibold text-black text-center">
-                  อธิบายระบบจองห้อง
-                </p>
-              </button>
-              <button
-                onClick={() => setIsBookOpen(true)}
-                className="flex flex-col items-center bg-white p-6 rounded-2xl shadow-md w-60 py-10 hover:bg-gray-200 hover:cursor-pointer"
-              >
-                <Calendar size={40} className="text-blue-400" />
-                <p className="mt-4 text-lg font-semibold text-black text-center">
-                  วิธีเริ่มต้นการจอง
-                </p>
-              </button>
-              <button
-                onClick={() => setIsReportOpen(true)}
-                className="flex flex-col items-center bg-white p-6 rounded-2xl shadow-md w-60 py-10 hover:bg-gray-200 hover:cursor-pointer"
-              >
-                <Flag size={40} className="text-blue-400" />
-                <p className="mt-4 text-lg font-semibold text-black text-center">
-                  วิธีรายงาน
-                </p>
-              </button>
-            </div>
-          </div>
-
-          {/* ส่วนคำถามที่พบบ่อย */}
-          <div className="bg-white w-full flex justify-center py-10 mt-20">
-            <div className="w-full max-w-2xl p-6 rounded-2xl">
-              <h2 className="text-2xl font-bold text-black mb-4">
-                คำถามที่พบบ่อย
-              </h2>
-              <ul className="space-y-5">
-                {faqItems.map((faq, index) => (
-                  <li
-                    key={index}
-                    onClick={() =>
-                      setOpenIndex(openIndex === index ? null : index)
-                    }
-                    className={`py-4 px-6 border border-gray-300 rounded-lg shadow-sm cursor-pointer transition-all ${
-                      openIndex === index
-                        ? "bg-[#ffffff] border-[#89BBFE]"
-                        : "bg-white hover:bg-gray-200"
-                    }`}
+              {/* เนื้อหา */}
+              <div className="flex-grow w-full max-w-4xl px-6 pb-20 flex flex-col items-center">
+                <div className="flex gap-6 mt-12 flex-wrap justify-center">
+                  <button
+                    onClick={() => setIsSystemOpen(true)}
+                    className="flex flex-col items-center bg-white p-6 rounded-2xl shadow-md w-60 py-10 hover:bg-gray-200 cursor-pointer"
                   >
-                    <div className="flex justify-between items-center">
-                      <span className="text-black font-medium text-lg">
-                        {faq.question}
-                      </span>
-                      <span className="rounded-full p-1">
-                        {openIndex === index ? (
-                          <ChevronDown size={24} className="text-[#89BBFE]" />
-                        ) : (
-                          <ChevronRight size={24} className="text-[#89BBFE]" />
+                    <Book size={40} className="text-blue-400" />
+                    <p className="mt-4 text-lg font-semibold text-black text-center">
+                      อธิบายระบบจองห้อง
+                    </p>
+                  </button>
+                  <button
+                    onClick={() => setIsBookOpen(true)}
+                    className="flex flex-col items-center bg-white p-6 rounded-2xl shadow-md w-60 py-10 hover:bg-gray-200 cursor-pointer"
+                  >
+                    <Calendar size={40} className="text-blue-400" />
+                    <p className="mt-4 text-lg font-semibold text-black text-center">
+                      วิธีเริ่มต้นการจอง
+                    </p>
+                  </button>
+                  <button
+                    onClick={() => setIsReportOpen(true)}
+                    className="flex flex-col items-center bg-white p-6 rounded-2xl shadow-md w-60 py-10 hover:bg-gray-200 cursor-pointer"
+                  >
+                    <Flag size={40} className="text-blue-400" />
+                    <p className="mt-4 text-lg font-semibold text-black text-center">
+                      วิธีรายงาน
+                    </p>
+                  </button>
+                </div>
+
+                {/* คำถามที่พบบ่อย */}
+                <div className="w-full max-w-2xl mt-12">
+                  <h2 className="text-2xl font-bold text-black mb-4">
+                    คำถามที่พบบ่อย
+                  </h2>
+                  <ul className="space-y-5">
+                    {faqItems.map((faq, index) => (
+                      <li
+                        key={index}
+                        onClick={() =>
+                          setOpenIndex(openIndex === index ? null : index)
+                        }
+                        className={`py-4 px-6 border border-gray-300 rounded-lg shadow-sm cursor-pointer transition-all ${
+                          openIndex === index
+                            ? "bg-[#ffffff] border-[#89BBFE]"
+                            : "bg-white hover:bg-gray-200"
+                        }`}
+                      >
+                        <div className="flex justify-between items-center">
+                          <span className="text-black font-medium text-lg">
+                            {faq.question}
+                          </span>
+                          <span className="rounded-full p-1">
+                            {openIndex === index ? (
+                              <ChevronDown
+                                size={24}
+                                className="text-[#89BBFE]"
+                              />
+                            ) : (
+                              <ChevronRight
+                                size={24}
+                                className="text-[#89BBFE]"
+                              />
+                            )}
+                          </span>
+                        </div>
+                        {openIndex === index && (
+                          <div className="mt-3 text-gray-700 border-t-2 border-gray-300 pt-5">
+                            {faq.answer}
+                          </div>
                         )}
-                      </span>
-                    </div>
-                    {openIndex === index && (
-                      <div className="mt-3 text-gray-700 border-t-2 border-gray-300 pt-5">
-                        {faq.answer}
-                      </div>
-                    )}
-                  </li>
-                ))}
-              </ul>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
             </div>
+
+            {/* Modal */}
+            {isSystemOpen && <HowToUse setIsOpen={setIsSystemOpen} />}
+            {isBookOpen && <HowToBook setIsOpen={setIsBookOpen} />}
+            {isReportOpen && <HowToReport setIsOpen={setIsReportOpen} />}
           </div>
         </div>
+
+        {/* Footer */}
       </div>
-
-      {/* Modal */}
-      {isSystemOpen && <HowToUse setIsOpen={setIsSystemOpen} />}
-      {isBookOpen && <HowToBook setIsOpen={setIsBookOpen} />}
-      {isReportOpen && <HowToReport setIsOpen={setIsReportOpen} />}
-
       <Footer />
     </>
   );
