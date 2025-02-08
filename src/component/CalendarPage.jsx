@@ -158,7 +158,7 @@ const CalendarPage = () => {
       console.error("Error creating booking:", error);
       alert("เกิดข้อผิดพลาดในการจองห้อง");
     }
-
+  };
 
   const handleDeleteEvent = () => {
     setEvents((prev) => prev.filter((event) => event.id !== selectedEvent.id));
