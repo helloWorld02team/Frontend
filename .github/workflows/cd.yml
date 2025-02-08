@@ -27,8 +27,8 @@ jobs:
         with:
           name: vite-build-artifact
           path: ./dist
-          
-deploy:
+
+  deploy:
     name: Deploy To Preview Server
     runs-on: self-hosted
     timeout-minutes: 10
