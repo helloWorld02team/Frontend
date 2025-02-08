@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from "@material-tailwind/react";
 import LoginModal from './libra/LoginModal';
-import jwtDecode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 
 const Navbar = () => {
   const [open, setOpen] = React.useState(false);
