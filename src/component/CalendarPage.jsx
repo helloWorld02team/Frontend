@@ -108,16 +108,6 @@ const CalendarPage = () => {
     };
 
     try {
-      const response = await fetch(
-        "https://www.melivecode.com/api/auth/attractions/update",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(postData),
-        }
-      );
 
       const response = await fetch("https://www.melivecode.com/api/auth/attractions/update", {
         method: "POST",
