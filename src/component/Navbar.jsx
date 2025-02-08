@@ -13,7 +13,7 @@ const Navbar = () => {
     
     try {
       // Make the fetch request to the logout API
-      const response = await fetch('http://localhost:3001/api/user/logout', {
+      const response = await fetch('http://helloworld02.sit.kmutt.ac.th:3001/api/user/logout', {
         method: 'POST', // Assuming it's a POST request for logout
         headers: {
           'Content-Type': 'application/json', // Adjust headers if necessary

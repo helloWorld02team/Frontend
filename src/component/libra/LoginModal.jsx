@@ -13,7 +13,7 @@ const LoginModal = ({ open, handleOpen , setUserName}) => {
     setErrorMessage("");
 
     try {
-        const response = await fetch("http://localhost:3001/api/user/login", {
+        const response = await fetch("http://helloworld02.sit.kmutt.ac.th:3001/api/user/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

@@ -128,12 +128,13 @@ const CalendarPage = () => {
       BookingTimeIn: newEvent.start.toISOString(),
       BookingTimeOut: newEvent.end.toISOString(),
       Room_idRoom: newEvent.room,
+      BookingDesription:newEvent.description,
       repeatType: newEvent.recurring ? "weekly" : "none",
       repeatEndDate: newEvent.recurring && newEvent.repeatUntil,
     };
   
     try {
-      const response = await fetch("http://localhost:3001/api/booking/create", {
+      const response = await fetch("http://helloworld02.sit.kmutt.ac.th:3001/api/booking/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -197,7 +198,7 @@ const CalendarPage = () => {
     
     try {
       console.log("delete click")
-      const response = await fetch("http://localhost:3001/api/booking/delete", {
+      const response = await fetch("http://helloworld02.sit.kmutt.ac.th:3001/api/booking/delete", {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -248,7 +249,7 @@ const CalendarPage = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await fetch("http://localhost:3001/api/booking/"); 
+        const response = await fetch("http://helloworld02.sit.kmutt.ac.th:3001/api/booking/"); 
         const data = await response.json();
         
         if (response.ok) {  
